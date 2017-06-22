@@ -1,0 +1,45 @@
+
+#signup .menu {
+
+}
+
+#signup .slider-wrapper {
+    min-height: 80vh;
+}
+
+#signup .slider-wrapper .signup-block {
+    padding: 15px 0 15px 0;
+}
+
+
+#signup .slider-wrapper .continue-button {
+    margin-top: 15px;
+}
+
+#signup .slider-wrapper .slick-track {
+    top: 0;
+}
+
+/*#signup-wrapper .slick-slider {
+    top:50%;
+    transform: translateY(-70%);
+}*/
+
+#signup .slider-wrapper .slick-slide {
+    opacity: 0.2;
+
+}
+
+#signup .slider-wrapper .slick-active {
+    opacity: 1;
+}
+
+#signup .menu .disabled {
+    opacity: 0.5;
+}
+
+.slider-menu {
+
+}
+
+
