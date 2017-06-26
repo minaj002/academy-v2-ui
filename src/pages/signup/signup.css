@@ -3,10 +3,6 @@
 
 }
 
-#signup .slider-wrapper {
-    min-height: 80vh;
-}
-
 #signup .slider-wrapper .signup-block {
     padding: 15px 0 15px 0;
 }
@@ -16,18 +12,8 @@
     margin-top: 15px;
 }
 
-#signup .slider-wrapper .slick-track {
-    top: 0;
-}
-
-/*#signup-wrapper .slick-slider {
-    top:50%;
-    transform: translateY(-70%);
-}*/
-
-#signup .slider-wrapper .slick-slide {
+#signup .slider-wrapper .slick-active {
     opacity: 0.2;
-
 }
 
 #signup .slider-wrapper .slick-active {
@@ -39,7 +25,17 @@
 }
 
 .slider-menu {
-
+    position: relative;
+    top: 30%;
+    transform: translateY(-30%);
 }
 
+.slick-slide {
+    height: 100vh !important;
+}
 
+.signup-block {
+    position: relative;
+    top: 30%;
+    transform: translateY(-30%);
+}

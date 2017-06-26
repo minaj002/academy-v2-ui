@@ -16,7 +16,6 @@ class EmailSlide extends Component {
         const { handleSubmit, pristine } = this.props;
 
         return (
-
             <form onSubmit={handleSubmit}>
 
                 <div className="mdc-typography--headline">What's your email address?</div>
@@ -30,7 +29,6 @@ class EmailSlide extends Component {
                 </div>
 
             </form>
-
         );
     }
 }

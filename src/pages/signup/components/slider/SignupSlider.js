@@ -27,7 +27,7 @@ const sliderSettings = {
     slidesToScroll: 1,
     arrows: false,
     vertical: true,
-    centerMode: true,
+    centerMode: false,
     slidesToShow: 1,
     adaptiveHeight: true,
     cssEase: 'cubic-bezier(0.18, 0.89, 0.32, 1.28)',
@@ -85,23 +85,35 @@ class SignupSlider extends Component {
                     <Row className="slider-wrapper">
                         <Col lg={12}>
                             <Slider ref={c => this.slider = c }  {...sliderSettings}>
-                                <div className="signup-block">
-                                    <EmailSlide onSubmit={(data) => this.handleSubmit(0, data)} />
+                                <div>
+                                    <div className="signup-block">
+                                        <EmailSlide onSubmit={(data) => this.handleSubmit(0, data)} />
+                                    </div>
                                 </div>
-                                <div className="signup-block">
-                                    <FirstNameSlide onSubmit={(data) => this.handleSubmit(1, data)}/>
+                                <div>
+                                    <div className="signup-block">
+                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(1, data)}/>
+                                    </div>
                                 </div>
-                                <div className="signup-block">
-                                    <LastNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
+                                <div>
+                                    <div className="signup-block">
+                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
+                                    </div>
                                 </div>
-                                <div className="signup-block">
-                                    <DOBSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
+                                <div>
+                                    <div className="signup-block">
+                                        <DOBSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
+                                    </div>
                                 </div>
-                                <div className="signup-block">
-                                    <PasswordSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
+                                <div>
+                                    <div className="signup-block">
+                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
+                                    </div>
                                 </div>
-                                <div className="signup-block">
-                                    <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(5, data)} />
+                                <div>
+                                    <div className="signup-block">
+                                        <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(5, data)} />
+                                    </div>
                                 </div>
                             </Slider>
                         </Col>
