@@ -30,6 +30,8 @@ const sliderSettings = {
     centerMode: false,
     slidesToShow: 1,
     adaptiveHeight: true,
+    swipeToSlide: false,
+    draggable: false,
     cssEase: 'cubic-bezier(0.18, 0.89, 0.32, 1.28)',
     responsive: [{
         breakpoint: 640, settings: {

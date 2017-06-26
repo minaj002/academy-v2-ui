@@ -7,18 +7,21 @@ import PropTypes from 'prop-types';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import CheckIcon from 'material-ui/svg-icons/action/check-circle';
 
 
 const menuItems = [
-    [ // Introduction
-        { id: 0, name: 'Email', props: {disabled: false}, active: true},
-        { id: 1, name: 'First name', props: {disabled: true}, active: false},
-        { id: 2, name: 'Last name', props: {disabled: true}, active: false},
-        { id: 3, name: 'Birthday', props: {disabled: true}, active: false},
-        { id: 4, name: 'Password', props: {disabled: true}, active: false},
-        { id: 5, name: 'Phone number', props: {disabled: true}, active: false}
-
-    ]
+    {id: 0, name: 'Introduction', props: {disabled:false, open:true, checked: false}, sub: [
+        {id: 0, name: 'Email', props: {disabled: false}, active: true},
+        {id: 1, name: 'First name', props: {disabled: true}, active: false},
+        {id: 2, name: 'Last name', props: {disabled: true}, active: false},
+        {id: 3, name: 'Birthday', props: {disabled: true}, active: false},
+        {id: 4, name: 'Password', props: {disabled: true}, active: false}
+    ]},
+    {id: 1, name: 'Contact', props: {disabled:true, open:false, checked: false}, sub: [
+        {id: 5, name: 'Phone number', props: {disabled: true}, active: false}
+    ]},
+    {id: 2, name: 'Legal', props: {disabled:true, open:false, checked: false}}
 ];
 
 class SliderMenu extends Component {
@@ -37,28 +40,67 @@ class SliderMenu extends Component {
     }
 
     onMenuItemTouchTap = (id) => {
-        console.log(id);
         this.mapMenuItems(id);
         this.props.onMenuItemTouchTap(id);
     };
 
-    mapMenuItems = (id) => {
+    onTopLevelMenuTouchTap = (id) => {
         let menuItems = this.state.menuItems;
         menuItems.map((item) => {
-            return item.map((inner) => {
-                if (inner.id===id) {
-                    inner.active = true;
-                    inner.props.disabled = false;
-                } else if (inner.id>id) {
-                    inner.props.disabled = true;
-                    inner.active = false;
-                } else {
-                    inner.active = false;
-                }
+            if (item.id===id) {
+                item.props.open = true;
+                if (item.sub) {
+                    item.sub = item.sub.map((sub, i) => {
+                        if (i===0) {
+                            this.props.onMenuItemTouchTap(sub.id);
+                            sub.active = true;
+                        } else {
+                            sub.active = false;
+                        }
 
-                return inner;
-            })
+                        sub.props.disabled = sub.id > this.props.current;
+
+                        return sub;
+                    });
+                }
+            } else {
+                item.props.open = false;
+            }
         });
+
+        this.setState({
+            menuItems: menuItems
+        });
+    };
+
+    mapMenuItems = (id) => {
+        let menuItems = this.state.menuItems;
+        let prevIndex = null;
+        menuItems.map((item, i) => {
+            if (item.sub) {
+                item.sub = item.sub.map((sub) => {
+                    if (sub.id===id) {
+                        sub.active = true;
+                        sub.props.disabled = false;
+                        item.props.open = true;
+                        item.props.disabled = false;
+                        prevIndex = i>0 ? i-1 : null;
+                    } else if (sub.id>id) {
+                        //sub.props.disabled = true;
+                        sub.active = false;
+                    } else {
+                        sub.active = false;
+                    }
+
+                    return sub;
+                });
+            }
+        });
+
+        if (prevIndex!==null) {
+            menuItems[prevIndex].props.open = false;
+            menuItems[prevIndex].props.checked = true;
+        }
 
         this.setState({
             menuItems: menuItems
@@ -67,24 +109,32 @@ class SliderMenu extends Component {
 
     render() {
 
-        const menu = this.state.menuItems[0].map((item) => {
-            let className = (item.props.disabled ? 'disabled ' : '') + "menu-item";
-            return <ListItem
-                className={className}
-                key={item.id}
-                primaryText={item.name}
-                onTouchTap={() => this.onMenuItemTouchTap(item.id)}
-                leftIcon={item.active ? <ArrowForward /> : null}
-                {...item.props}
+        const menu = this.state.menuItems.map((item) => {
+            let sub = [];
+            if (item.sub) {
+                 sub = item.sub.map((subItem) => {
+                    let className = (subItem.props.disabled ? 'disabled ' : '') + "menu-item";
+                    return <ListItem
+                        className={className}
+                        key={subItem.id}
+                        primaryText={subItem.name}
+                        onTouchTap={() => this.onMenuItemTouchTap(subItem.id)}
+                        leftIcon={subItem.active ? <ArrowForward /> : null}
+                        {...subItem.props}
+                    />
+                });
+            }
+
+            return <ListItem key={item.id} className="menu-item" primaryText={item.name} open={item.props.open}
+                             autoGenerateNestedIndicator={false} onTouchTap={() => this.onTopLevelMenuTouchTap(item.id)}
+                             nestedItems={sub} disabled={item.props.disabled} leftIcon={item.props.checked ? <CheckIcon/> : null}
             />
         });
 
         return (
             <List className="slider-menu">
-                <Subheader>Where are you?</Subheader>
-                <ListItem className="menu-item" primaryText="Introduction" initiallyOpen={true} autoGenerateNestedIndicator={false}
-                          nestedItems={menu} disabled={true}
-                />
+                {/*<Subheader>Where are you?</Subheader>*/}
+                {menu}
             </List>
         )
 
