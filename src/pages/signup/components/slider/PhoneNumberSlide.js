@@ -8,6 +8,14 @@ import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const validate = values => {
+    const errors = {};
+    if (!values.phoneNumber) {
+        errors.phoneNumber = "Phone number is required"
+    }
+
+    return errors;
+};
 
 class PhoneNumberSlide extends Component {
 
@@ -21,7 +29,7 @@ class PhoneNumberSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
-                <Field name="phoneNumber" hintText="e.g +111 11111111" component={TextField} fullWidth />
+                <Field name="phoneNumber" hintText="e.g +111 11111111" component={TextField} fullWidth tabIndex="-1" />
 
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
@@ -36,7 +44,8 @@ class PhoneNumberSlide extends Component {
 }
 
 PhoneNumberSlide = reduxForm({
-    form: 'PhoneNumberSlide'
+    form: 'PhoneNumberSlide',
+    validate
 })(PhoneNumberSlide);
 
 export default connect() (PhoneNumberSlide);

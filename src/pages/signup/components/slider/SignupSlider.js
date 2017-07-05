@@ -19,8 +19,11 @@ import LastNameSlide from './LastNameSlide';
 import DOBSlide from './DOBSlide';
 import PasswordSlide from './PasswordSlide';
 import PhoneNumberSlide from './PhoneNumberSlide';
+import AddressSlide from './AddressSlide';
+import CountrySlide from './CountrySlide';
 
 const sliderSettings = {
+    accessibility: false,
     infinite: false,
     dots: false,
     speed: 500,
@@ -45,14 +48,18 @@ class SignupSlider extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            current: 0
-        };
+            current: 0,
+            data: {country: ''}
+        }
     }
 
-    updateState = (id) => {
+    updateState = (id, data) => {
         this.setState({
-            current: id
+            current: id,
+            data: Object.assign(this.state.data, data)
         });
+
+        console.log(this.state.data);
     };
 
     onMenuItemTouchTap = (id) => {
@@ -60,18 +67,17 @@ class SignupSlider extends Component {
     };
 
     handleSubmit = (id, data) => {
-        this.next(id+1);
+        this.next(id+1, data);
     };
 
-    next = (id) => {
+    next = (id, data) => {
         if (this.state.current<=id) {
             this.slider.slickNext();
-            this.props.setTimeout(() => this.updateState(id), 500); //todo: use promise instead
+            this.props.setTimeout(() => this.updateState(id, data), 500); //todo: use promise instead
         }
     };
 
     moveTo = (id) => {
-        console.log(this.state.current, id);
         this.slider.slickGoTo(id);
         this.props.setTimeout(() => this.updateState(id), 500); //todo: use promise instead
     };
@@ -94,27 +100,37 @@ class SignupSlider extends Component {
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(1, data)}/>
+                                        <CountrySlide handleSubmit={(data) => this.handleSubmit(1, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
+                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <DOBSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
+                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
+                                        <DOBSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(5, data)} />
+                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(5, data)}/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="signup-block">
+                                        <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(6, data)} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="signup-block">
+                                        <AddressSlide country={this.state.data.country} onSubmit={(data) => this.handleSubmit(7, data)} />
                                     </div>
                                 </div>
                             </Slider>

@@ -13,13 +13,15 @@ import CheckIcon from 'material-ui/svg-icons/action/check-circle';
 const menuItems = [
     {id: 0, name: 'Introduction', props: {disabled:false, open:true, checked: false}, sub: [
         {id: 0, name: 'Email', props: {disabled: false}, active: true},
-        {id: 1, name: 'First name', props: {disabled: true}, active: false},
-        {id: 2, name: 'Last name', props: {disabled: true}, active: false},
-        {id: 3, name: 'Birthday', props: {disabled: true}, active: false},
-        {id: 4, name: 'Password', props: {disabled: true}, active: false}
+        {id: 1, name: 'Country', props: {disabled: true}, active: false},
+        {id: 2, name: 'First name', props: {disabled: true}, active: false},
+        {id: 3, name: 'Last name', props: {disabled: true}, active: false},
+        {id: 4, name: 'Birthday', props: {disabled: true}, active: false},
+        {id: 5, name: 'Password', props: {disabled: true}, active: false}
     ]},
     {id: 1, name: 'Contact', props: {disabled:true, open:false, checked: false}, sub: [
-        {id: 5, name: 'Phone number', props: {disabled: true}, active: false}
+        {id: 6, name: 'Phone number', props: {disabled: true}, active: false},
+        {id: 7, name: 'Address', props: {disabled: true}, active: false}
     ]},
     {id: 2, name: 'Legal', props: {disabled:true, open:false, checked: false}}
 ];
@@ -53,12 +55,7 @@ class SliderMenu extends Component {
                     item.sub = item.sub.map((sub, i) => {
                         if (i===0) {
                             this.props.onMenuItemTouchTap(sub.id);
-                            sub.active = true;
-                        } else {
-                            sub.active = false;
                         }
-
-                        sub.props.disabled = sub.id > this.props.current;
 
                         return sub;
                     });

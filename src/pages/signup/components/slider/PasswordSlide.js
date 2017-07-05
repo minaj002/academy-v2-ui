@@ -9,6 +9,14 @@ import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const validate = values => {
+    const errors = {};
+    if (!values.password) {
+        errors.password = "Password is required"
+    }
+
+    return errors;
+};
 
 class PasswordSlide extends Component {
 
@@ -22,7 +30,7 @@ class PasswordSlide extends Component {
 
                 <div className="mdc-typography--headline">Create your password</div>
 
-                <Field name="password" type="password" hintText="********" component={TextField} fullWidth />
+                <Field name="password" type="password" hintText="********" component={TextField} fullWidth tabIndex="-1" />
 
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
@@ -37,7 +45,8 @@ class PasswordSlide extends Component {
 }
 
 PasswordSlide = reduxForm({
-    form: 'PasswordSlide'
+    form: 'PasswordSlide',
+    validate
 })(PasswordSlide);
 
 export default connect() (PasswordSlide);
