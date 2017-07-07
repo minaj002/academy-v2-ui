@@ -8,22 +8,28 @@ import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import CheckIcon from 'material-ui/svg-icons/action/check-circle';
+//cyan500 color for checked icon
 
 
 const menuItems = [
     {id: 0, name: 'Introduction', props: {disabled:false, open:true, checked: false}, sub: [
-        {id: 0, name: 'Email', props: {disabled: false}, active: true},
-        {id: 1, name: 'Country', props: {disabled: true}, active: false},
-        {id: 2, name: 'First name', props: {disabled: true}, active: false},
-        {id: 3, name: 'Last name', props: {disabled: true}, active: false},
-        {id: 4, name: 'Birthday', props: {disabled: true}, active: false},
-        {id: 5, name: 'Password', props: {disabled: true}, active: false}
+        {id: 0, name: 'Phone number', props: {disabled: true}, active: false},
+        {id: 1, name: 'Email', props: {disabled: false}, active: true},
+        {id: 2, name: 'Country', props: {disabled: true}, active: false},
+        {id: 3, name: 'First name', props: {disabled: true}, active: false},
+        {id: 4, name: 'Last name', props: {disabled: true}, active: false},
+        {id: 5, name: 'Gender', props: {disabled: true}, active: false},
+        {id: 6, name: 'Birthday', props: {disabled: true}, active: false},
+        {id: 7, name: 'Password', props: {disabled: true}, active: false},
+        {id: 8, name: 'Password confirm', props: {disabled: true}, active: false}
     ]},
     {id: 1, name: 'Contact', props: {disabled:true, open:false, checked: false}, sub: [
-        {id: 6, name: 'Phone number', props: {disabled: true}, active: false},
-        {id: 7, name: 'Address', props: {disabled: true}, active: false}
+
+        {id: 9, name: 'Address', props: {disabled: true}, active: false}
     ]},
-    {id: 2, name: 'Legal', props: {disabled:true, open:false, checked: false}}
+    {id: 2, name: 'Legal', props: {disabled:true, open:false, checked: false}, sub:[
+        {id: 10, name: 'Terms and Conditions', props: {disabled: false}, active: true}
+    ]}
 ];
 
 class SliderMenu extends Component {
@@ -110,13 +116,21 @@ class SliderMenu extends Component {
             let sub = [];
             if (item.sub) {
                  sub = item.sub.map((subItem) => {
-                    let className = (subItem.props.disabled ? 'disabled ' : '') + "menu-item";
+                    let className = (subItem.props.disabled ? 'disabled' : (subItem.active ? 'menu-item-active' : '')) + " menu-item";
+                    let innerStyle = {
+                        paddingTop: '10px',
+                        paddingBottom:'10px',
+                        paddingRight:'10px',
+                        paddingLeft: subItem.active ? '52px' : '16px'
+                    };
+
                     return <ListItem
                         className={className}
                         key={subItem.id}
                         primaryText={subItem.name}
                         onTouchTap={() => this.onMenuItemTouchTap(subItem.id)}
-                        leftIcon={subItem.active ? <ArrowForward /> : null}
+                        leftIcon={subItem.active ? <ArrowForward style={{margin: '6px'}} /> : null}
+                        innerDivStyle={innerStyle}
                         {...subItem.props}
                     />
                 });

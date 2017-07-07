@@ -5,8 +5,8 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
+import TelephoneInput from './../phoneInput/withStyles';
 
 const validate = values => {
     const errors = {};
@@ -29,7 +29,10 @@ class PhoneNumberSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
-                <Field name="phoneNumber" hintText="e.g +111 11111111" component={TextField} fullWidth tabIndex="-1" />
+                <Field name="phoneNumber" hintText="e.g +111 11111111"
+                       flagsImagePath="/public/assets/img/flags.png"
+                       defaultCountry="lv"
+                       component={TelephoneInput} fullWidth tabIndex="-1" />
 
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"

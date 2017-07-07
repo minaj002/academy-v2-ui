@@ -1,7 +1,4 @@
 
-#signup .menu {
-
-}
 
 #signup .slider-wrapper .signup-block {
     padding: 15px 0 15px 0;
@@ -32,10 +29,43 @@
 
 .slick-slide {
     height: 100vh !important;
+    padding: 0 10px 0 10px;
 }
 
 .signup-block {
     position: relative;
     top: 30%;
     transform: translateY(-30%);
+}
+
+
+/* Tel input overrides  */
+
+.react-tel-input {
+    border: none;
+    width: auto;
+}
+
+.react-tel-input input[type=text],
+.react-tel-input input[type=tel] {
+    border: none;
+    outline: none;
+    -webkit-appearance:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    line-height: 24px;
+    border-bottom: none;
+    padding: 0 0 0 45px !important;
+}
+
+.react-tel-input input[type=text]:focus,
+.react-tel-input input[type=tel]:focus {
+    border-bottom: none;
+}
+
+.react-tel-input .flag-dropdown {
+    background: none;
+    border: none;
+    top: 10px;
 }

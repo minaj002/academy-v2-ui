@@ -13,6 +13,9 @@ const validate = values => {
     if (!values.lastName) {
         errors.lastName = "Last name is required"
     }
+    else if (!/^[a-z]+$/i.test(values.lastName)) {
+        errors.lastName = "Only latin alphabet allowed"
+    }
 
     return errors;
 };

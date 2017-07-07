@@ -18,9 +18,13 @@ import FirstNameSlide from './FirstNameSlide';
 import LastNameSlide from './LastNameSlide';
 import DOBSlide from './DOBSlide';
 import PasswordSlide from './PasswordSlide';
+import PasswordRepeatSlide from './PasswordRepeatSlide';
 import PhoneNumberSlide from './PhoneNumberSlide';
 import AddressSlide from './AddressSlide';
 import CountrySlide from './CountrySlide';
+import LegalSlide from './LegalSlide';
+import GenderSlide from './GenderSlide';
+
 
 const sliderSettings = {
     accessibility: false,
@@ -49,7 +53,7 @@ class SignupSlider extends Component {
         super(props);
         this.state = {
             current: 0,
-            data: {country: ''}
+            data: {country: '', password: ''}
         }
     }
 
@@ -93,44 +97,61 @@ class SignupSlider extends Component {
                     <Row className="slider-wrapper">
                         <Col lg={12}>
                             <Slider ref={c => this.slider = c }  {...sliderSettings}>
+
                                 <div>
                                     <div className="signup-block">
-                                        <EmailSlide onSubmit={(data) => this.handleSubmit(0, data)} />
+                                        <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(0, data)} />
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <CountrySlide handleSubmit={(data) => this.handleSubmit(1, data)}/>
+                                        <EmailSlide onSubmit={(data) => this.handleSubmit(1, data)} />
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
+                                        <CountrySlide handleSubmit={(data) => this.handleSubmit(2, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
+                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <DOBSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
+                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(5, data)}/>
+                                        <GenderSlide onSubmit={(data) => this.handleSubmit(5, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <PhoneNumberSlide onSubmit={(data) => this.handleSubmit(6, data)} />
+                                        <DOBSlide onSubmit={(data) => this.handleSubmit(6, data)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="signup-block">
-                                        <AddressSlide country={this.state.data.country} onSubmit={(data) => this.handleSubmit(7, data)} />
+                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(7, data)}/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="signup-block">
+                                        <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.handleSubmit(8, data)}/>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <AddressSlide country={this.state.data.country} onSubmit={(data) => this.handleSubmit(9, data)} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="signup-block">
+                                        <LegalSlide onSubmit={(data) => this.handleSubmit(10, data)} />
                                     </div>
                                 </div>
                             </Slider>

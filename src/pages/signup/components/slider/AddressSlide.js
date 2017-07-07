@@ -13,6 +13,23 @@ import GooglePlaceAutocomplete from '../GooglePlaceAutoComplete';
 import { change } from 'redux-form';
 //import countries from '../../../../data/countries.json';
 
+const validate = values => {
+    const errors = {};
+    if (!values.line1) {
+        errors.line1 = "Street is required"
+    }
+
+    if (!values.city) {
+        errors.city = "City is required"
+    }
+
+    if (!values.postalCode) {
+        errors.postalCode = "Post code is required"
+    }
+
+    return errors;
+};
+
 class AddressSlide extends Component {
 
     constructor(props) {
@@ -48,7 +65,7 @@ class AddressSlide extends Component {
                 <Row>
                     <Col lg={12}>
 
-                        <Field name="line1" hintText="" floatingLabelText="Address" floatingLabelFixed={true}
+                        <Field name="line1" hintText="" floatingLabelText="Street" floatingLabelFixed={true}
                                onItemSelected = {this.onItemSelected}
                                component={GooglePlaceAutocomplete}
                                fullWidth tabIndex="-1" />
@@ -60,7 +77,7 @@ class AddressSlide extends Component {
                                component={TextField} fullWidth tabIndex="-1" />
                     </Col>
                     <Col lg={4}>
-                        <Field name="postIndex" hintText="" floatingLabelText="Post index" floatingLabelFixed={true}
+                        <Field name="postalCode" hintText="" floatingLabelText="Post index" floatingLabelFixed={true}
                                component={TextField} fullWidth tabIndex="-1" />
                     </Col>
                     {/*<Col lg={4}>
@@ -87,7 +104,8 @@ AddressSlide.propTypes = {
 };
 
 AddressSlide = reduxForm({
-    form: 'AddressSlide'
+    form: 'AddressSlide',
+    validate
 })(AddressSlide);
 
 export default connect() (AddressSlide);

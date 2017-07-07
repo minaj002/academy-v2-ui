@@ -12,7 +12,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 const validate = values => {
     const errors = {};
     if (!values.password) {
-        errors.password = "Password is required"
+        errors.password = "Password is required";
+    }
+    else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*/.test(values.password)) {
+        errors.password = "Password must contain at least one latin uppercase, lowercase and numeric character";
+    }
+    else if (values.password.length<8 || values.password.length>20) {
+        errors.password = 'Password length must between 8 and 20 characters';
     }
 
     return errors;
