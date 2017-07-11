@@ -3,15 +3,32 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TelephoneInput from './../phoneInput/withStyles';
+import GoogleLibPhoneNumber from 'google-libphonenumber';
 
-const validate = values => {
+let selectedCountry;
+const PhoneNumberUtil = GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
+
+const validate = (values) => {
+
     const errors = {};
-    if (!values.phoneNumber) {
-        errors.phoneNumber = "Phone number is required"
+
+    if (selectedCountry) {
+        let numberProto;
+        try {
+            numberProto = PhoneNumberUtil.parse(values.phoneNumber, selectedCountry.iso2);
+            if (!PhoneNumberUtil.isValidNumber(numberProto)) {
+                errors.phoneNumber = "Please input phone number correctly";
+            }
+
+        } catch (e) {
+            errors.phoneNumber = "Please input phone number correctly";
+
+        }
     }
 
     return errors;
@@ -19,9 +36,17 @@ const validate = values => {
 
 class PhoneNumberSlide extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+    onInputChange = (number, country) => {
+        selectedCountry = country;
+    };
+
     render() {
 
-        const { handleSubmit, pristine } = this.props;
+        const { handleSubmit, pristine, defaultCountry } = this.props;
 
         return (
 
@@ -29,9 +54,10 @@ class PhoneNumberSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
-                <Field name="phoneNumber" hintText="e.g +111 11111111"
+                <Field name="phoneNumber"
                        flagsImagePath="/public/assets/img/flags.png"
-                       defaultCountry="lv"
+                       defaultCountry={defaultCountry ? defaultCountry : 'de'}
+                       onInputChange={this.onInputChange}
                        component={TelephoneInput} fullWidth tabIndex="-1" />
 
                 <div>
@@ -45,6 +71,10 @@ class PhoneNumberSlide extends Component {
         );
     }
 }
+
+PhoneNumberSlide.propTypes = {
+    defaultCountry: PropTypes.string.isRequired
+};
 
 PhoneNumberSlide = reduxForm({
     form: 'PhoneNumberSlide',

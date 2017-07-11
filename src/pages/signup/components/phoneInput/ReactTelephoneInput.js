@@ -2,34 +2,34 @@
 
 // TODO - fix the onlyContries props. Currently expects that as an array of country object, but users should be able to send in array of country isos
 
+import React from 'react';
+import ReactDom from 'react-dom';
 import TextField from 'material-ui/TextField';
+import countryData from 'country-telephone-data';
+import onClickOutside from 'react-onclickoutside';
 
-var some = require('lodash/some');
-var find = require('lodash/find');
-var reduce = require('lodash/reduce');
-var map = require('lodash/map');
-var filter = require('lodash/filter');
-var findIndex = require('lodash/findIndex');
-var first = require('lodash/first');
-var tail = require('lodash/tail');
-var debounce = require('lodash/debounce');
-var memoize = require('lodash/memoize');
-var assign = require('lodash/assign');
-var isEqual = require('lodash/isEqual');
+const some = require('lodash/some');
+const find = require('lodash/find');
+const reduce = require('lodash/reduce');
+const map = require('lodash/map');
+const filter = require('lodash/filter');
+const findIndex = require('lodash/findIndex');
+const first = require('lodash/first');
+const tail = require('lodash/tail');
+const debounce = require('lodash/debounce');
+const memoize = require('lodash/memoize');
+const assign = require('lodash/assign');
+const isEqual = require('lodash/isEqual');
 // import lodash string methods
-var trim = require('lodash/trim');
-var startsWith = require('lodash/startsWith');
-var PropTypes = require('prop-types');
-var createReactClass = require('create-react-class');
+const trim = require('lodash/trim');
+const startsWith = require('lodash/startsWith');
+const PropTypes = require('prop-types');
+const createReactClass = require('create-react-class');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var onClickOutside = require('react-onclickoutside');
-var classNames = require('classnames');
-var countryData = require('country-telephone-data')
-var allCountries = countryData.allCountries;
-var iso2Lookup = countryData.iso2Lookup;
-var allCountryCodes = countryData.allCountryCodes;
+const classNames = require('classnames');
+const allCountries = countryData.allCountries;
+const iso2Lookup = countryData.iso2Lookup;
+const allCountryCodes = countryData.allCountryCodes;
 
 if (typeof document !== 'undefined') {
   var isModernBrowser = Boolean(document.createElement('input').setSelectionRange);
@@ -49,14 +49,6 @@ var keys = {
         Z: 90,
         SPACE: 32
 };
-
-function isNumberValid(inputNumber) {
-    var countries = countryData.allCountries;
-    return some(countries, function(country) {
-        return startsWith(inputNumber, country.dialCode) || startsWith(country.dialCode, inputNumber);
-    });
-}
-
 
 export var ReactTelephoneInput = createReactClass({
     getInitialState() {
@@ -86,27 +78,27 @@ export var ReactTelephoneInput = createReactClass({
         classNames: PropTypes.string,
         className: PropTypes.string,
         inputId: PropTypes.string,
-        onChange: PropTypes.func,
         onEnterKeyPress: PropTypes.func,
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         disabled: PropTypes.bool,
         pattern: PropTypes.string,
         required: PropTypes.bool,
+        onInputChange: PropTypes.func
     },
     getDefaultProps() {
         return {
             autoFormat: true,
             onlyCountries: allCountries,
             defaultCountry: allCountries[0].iso2,
-            isValid: isNumberValid,
+            //isValid: isNumberValid,
             flagsImagePath: 'flags.png',
             onEnterKeyPress: function () {},
             preferredCountries: [],
             disabled: false,
             placeholder: '+1 (702) 123-4567',
             autoComplete: 'tel',
-            required: false,
+            required: false
         };
     },
     getNumber() {
@@ -119,8 +111,8 @@ export var ReactTelephoneInput = createReactClass({
         document.addEventListener('keydown', this.handleKeydown);
 
         this._cursorToEnd(true);
-        if(typeof this.props.onChange === 'function') {
-            this.props.onChange(this.state.formattedNumber, this.state.selectedCountry);
+        if(typeof this.props.onInputChange === 'function') {
+            this.props.onInputChange(this.state.formattedNumber, this.state.selectedCountry);
         }
     },
     shouldComponentUpdate(nextProps, nextState) {
@@ -219,7 +211,7 @@ export var ReactTelephoneInput = createReactClass({
     },
     // memoize results based on the first 5/6 characters. That is all that matters
     guessSelectedCountry: function(inputNumber) {
-        var secondBestGuess = find(allCountries, {iso2: this.props.defaultCountry}) || this.props.onlyCountries[0];
+        var secondBestGuess = find(allCountries, {iso2: this.props.defaultCountry.toLowerCase()}) || this.props.onlyCountries[0];
         var inputNumberForCountries = inputNumber.substr(0, 4);
         if (trim(inputNumber) !== '') {
             var bestGuess = reduce(this.props.onlyCountries, function (selectedCountry, country) {
@@ -277,6 +269,7 @@ export var ReactTelephoneInput = createReactClass({
         });
     },
     handleInput(event) {
+
         var formattedNumber = '+', newSelectedCountry = this.state.selectedCountry, freezeSelection = this.state.freezeSelection;
 
         // if the input is the same as before, must be some special key like enter etc.
@@ -328,10 +321,14 @@ export var ReactTelephoneInput = createReactClass({
                 }
             }
 
-            if(this.props.onChange) {
-                this.props.onChange(this.state.formattedNumber, this.state.selectedCountry);
+
+            if(this.props.onInputChange) {
+                this.props.onInputChange(this.state.formattedNumber, this.state.selectedCountry);
             }
+
         });
+
+        this.props.input.onChange(event);
 
     },
     handleInputClick() {
@@ -354,8 +351,8 @@ export var ReactTelephoneInput = createReactClass({
                 formattedNumber: formattedNumber
             }, function() {
                 this._cursorToEnd();
-                if(this.props.onChange) {
-                    this.props.onChange(formattedNumber, nextSelectedCountry);
+                if(this.props.onInputChange) {
+                    this.props.onInputChange(formattedNumber, nextSelectedCountry);
                 }
             });
         } else {
@@ -371,6 +368,7 @@ export var ReactTelephoneInput = createReactClass({
         this._fillDialCode();
     },
     _mapPropsToState(props, firstCall = false) {
+
         let inputNumber;
 
         if(props.value) {
@@ -388,9 +386,15 @@ export var ReactTelephoneInput = createReactClass({
 
         let selectedCountryGuess = this.guessSelectedCountry(inputNumber.replace(/\D/g, ''));
         let selectedCountryGuessIndex = findIndex(allCountries, selectedCountryGuess);
-        let formattedNumber = this.formatNumber(
-            inputNumber.replace(/\D/g, ''), selectedCountryGuess ? selectedCountryGuess.format : null
-        );
+        let formattedNumber;
+
+        if (firstCall && this.props.defaultCountry) {
+            formattedNumber = "+"+selectedCountryGuess.dialCode;
+        } else {
+            formattedNumber = this.formatNumber(
+                inputNumber.replace(/\D/g, ''), selectedCountryGuess ? selectedCountryGuess.format : null
+            );
+        }
 
         return {
             selectedCountry: selectedCountryGuess,
@@ -538,18 +542,26 @@ export var ReactTelephoneInput = createReactClass({
         };
     },
     handleInputBlur() {
+      this.props.input.onBlur();
       if(typeof this.props.onBlur === 'function') {
         this.props.onBlur(this.state.formattedNumber, this.state.selectedCountry);
       }
     },
     render() {
+
+        const {meta: {error, touched}, input} = this.props;
+
+        console.log(this.props);
+        //console.log(this.props.isValid(this.state.formattedNumber.replace(/\D/g, '')));
+
+
         var arrowClasses = classNames({
             'arrow': true,
             'up': this.state.showDropDown
         });
         var inputClasses = classNames({
             'form-control': true,
-            'invalid-number': !this.props.isValid(this.state.formattedNumber.replace(/\D/g, ''))
+            //'invalid-number': !this.props.isValid(this.state.formattedNumber.replace(/\D/g, ''))
         });
 
         var flagViewClasses = classNames({
@@ -562,9 +574,11 @@ export var ReactTelephoneInput = createReactClass({
         if(this.props.inputId) {
             otherProps.id = this.props.inputId
         }
+
         return (
             <div className={classNames('react-tel-input', this.props.classNames, this.props.className)}>
                 <TextField
+                    errorText={touched && error}
                     onChange={this.handleInput}
                     onClick={this.handleInputClick}
                     onFocus={this.handleInputFocus}
@@ -573,11 +587,10 @@ export var ReactTelephoneInput = createReactClass({
                     value={this.state.formattedNumber}
                     ref="numberInput"
                     type="tel"
+                    name={input.name}
                     className={inputClasses}
                     autoComplete={this.props.autoComplete}
                     pattern={this.props.pattern}
-                    name="phoneNumber"
-                    required={this.props.required}
                     placeholder={this.props.placeholder}
                     disabled={this.props.disabled} {...otherProps}/>
                 <div ref='flagDropDownButton' className={flagViewClasses} onKeyDown={this.handleKeydown} >
