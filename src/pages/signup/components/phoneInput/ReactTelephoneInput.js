@@ -129,7 +129,7 @@ export var ReactTelephoneInput = createReactClass({
             return;
         }
 
-        var container = ReactDOM.findDOMNode(this.refs.flagDropdownList);
+        var container = ReactDom.findDOMNode(this.refs.flagDropdownList);
 
         if(!container) {
           return;
@@ -250,7 +250,7 @@ export var ReactTelephoneInput = createReactClass({
         return bestGuess;
     },
     getElement(index) {
-        return ReactDOM.findDOMNode(this.refs[`flag_no_${index}`]);
+        return ReactDom.findDOMNode(this.refs[`flag_no_${index}`]);
     },
     handleFlagDropdownClick() {
         if (this.props.disabled) {
@@ -550,10 +550,6 @@ export var ReactTelephoneInput = createReactClass({
     render() {
 
         const {meta: {error, touched}, input} = this.props;
-
-        console.log(this.props);
-        //console.log(this.props.isValid(this.state.formattedNumber.replace(/\D/g, '')));
-
 
         var arrowClasses = classNames({
             'arrow': true,

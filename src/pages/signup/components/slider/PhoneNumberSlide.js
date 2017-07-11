@@ -10,17 +10,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TelephoneInput from './../phoneInput/withStyles';
 import GoogleLibPhoneNumber from 'google-libphonenumber';
 
-let selectedCountry;
+let countryFromInput;
 const PhoneNumberUtil = GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
 const validate = (values) => {
 
     const errors = {};
 
-    if (selectedCountry) {
+    if (countryFromInput) {
         let numberProto;
         try {
-            numberProto = PhoneNumberUtil.parse(values.phoneNumber, selectedCountry.iso2);
+            numberProto = PhoneNumberUtil.parse(values.phoneNumber, countryFromInput.iso2);
             if (!PhoneNumberUtil.isValidNumber(numberProto)) {
                 errors.phoneNumber = "Please input phone number correctly";
             }
@@ -36,17 +36,17 @@ const validate = (values) => {
 
 class PhoneNumberSlide extends Component {
 
-    constructor(props) {
-        super(props);
+    componentWillReceiveProps(nextProps) {
+        countryFromInput = nextProps.selectedCountry;
     }
 
     onInputChange = (number, country) => {
-        selectedCountry = country;
+        countryFromInput = country;
     };
 
     render() {
 
-        const { handleSubmit, pristine, defaultCountry } = this.props;
+        const { handleSubmit, pristine, selectedCountry } = this.props;
 
         return (
 
@@ -56,7 +56,7 @@ class PhoneNumberSlide extends Component {
 
                 <Field name="phoneNumber"
                        flagsImagePath="/public/assets/img/flags.png"
-                       defaultCountry={defaultCountry ? defaultCountry : 'de'}
+                       defaultCountry={selectedCountry}
                        onInputChange={this.onInputChange}
                        component={TelephoneInput} fullWidth tabIndex="-1" />
 
@@ -73,7 +73,7 @@ class PhoneNumberSlide extends Component {
 }
 
 PhoneNumberSlide.propTypes = {
-    defaultCountry: PropTypes.string.isRequired
+    selectedCountry: PropTypes.string.isRequired
 };
 
 PhoneNumberSlide = reduxForm({
