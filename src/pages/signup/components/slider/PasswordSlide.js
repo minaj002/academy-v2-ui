@@ -6,25 +6,29 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
+import PasswordField from '../fields/PasswordField';
 
 const validate = values => {
     const errors = {};
     if (!values.password) {
         errors.password = "Password is required";
     }
-    else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*/.test(values.password)) {
-        errors.password = "Password must contain at least one latin uppercase, lowercase and numeric character";
-    }
-    else if (values.password.length<8 || values.password.length>20) {
-        errors.password = 'Password length must between 8 and 20 characters';
-    }
-
     return errors;
 };
 
 class PasswordSlide extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            valid: false
+        }
+    }
+
+    passwordIsValid = (valid) => {
+        this.setState({valid: valid});
+    };
 
     render() {
 
@@ -36,11 +40,11 @@ class PasswordSlide extends Component {
 
                 <div className="mdc-typography--headline">Create your password</div>
 
-                <Field name="password" type="password" hintText="********" component={TextField} fullWidth tabIndex="-1" />
+                <PasswordField isValid={this.passwordIsValid} validLength={8} name="password" />
 
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
-                                  disabled={pristine}
+                                  disabled={pristine || !this.state.valid}
                                   primary label="Continue" />
                 </div>
 

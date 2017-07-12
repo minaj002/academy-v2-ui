@@ -46,9 +46,9 @@ class EmailSlide extends Component {
             <form onSubmit={handleSubmit}>
 
                 <div className="mdc-typography--headline">What's your email address?</div>
-
-                <Field name="email" withRef ref="email" hintText="e.g john@example.com" component={TextField} fullWidth tabIndex="-1" />
-
+                <div className="signup-field-group">
+                    <Field name="email" withRef ref="email" hintText="e.g john@example.com" component={TextField} fullWidth tabIndex="-1" />
+                </div>
                 <div>
                     <RaisedButton type="submit" className="continue-button"
                                   disabled={pristine || isFetching}

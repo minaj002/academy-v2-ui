@@ -38,6 +38,24 @@
     transform: translateY(-30%);
 }
 
+.signup-field-group {
+    margin: 10px 0 10px 0;
+}
+
+/* Password input */
+.password-subheading-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.password-chip {
+    margin: 0 5px 0 5px !important;
+}
+
+.password-chip span {
+    line-height: 26px !important;
+}
+
 
 /* Tel input overrides  */
 

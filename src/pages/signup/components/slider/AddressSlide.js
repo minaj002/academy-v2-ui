@@ -42,15 +42,9 @@ class AddressSlide extends Component {
         this._geocoder = new google.maps.Geocoder();
     }
 
-    /*componentWillReceiveProps(nextProps) {
-        if (nextProps.country) {
-            this.props.dispatch(change('AddressSlide', 'country', nextProps.country));
-        }
-    }*/
-
     onItemSelected = (item) => {
         this.props.dispatch(change('AddressSlide', 'city', item.city));
-        this.props.dispatch(change('AddressSlide', 'postIndex', item.postalCode));
+        this.props.dispatch(change('AddressSlide', 'postalCode', item.postalCode));
     };
 
     render() {
