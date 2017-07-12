@@ -32,8 +32,9 @@ class FirstNameSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your first name?</div>
 
-                <Field name="firstName" hintText="e.g John" component={TextField} fullWidth tabIndex="-1" />
-
+                <div className="signup-field-group">
+                    <Field name="firstName" hintText="e.g John" component={TextField} fullWidth tabIndex="-1" />
+                </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
                                   disabled={pristine}

@@ -51,15 +51,16 @@ class CountrySlide extends Component {
 
                 <div className="mdc-typography--headline">Which country do you live?</div>
 
-                <AutoComplete name="country" hintText="e.g. Germany"
-                              maxSearchResults={5}
-                              onUpdateInput={this.onChange}
-                              onNewRequest={this.onNewRequest}
-                              dataSourceConfig={{text: 'name', value: 'alpha2Code'}}
-                              dataSource={countries}
-                              tabIndex="-1"
-                              fullWidth />
-
+                <div className="signup-field-group">
+                    <AutoComplete name="country" hintText="e.g. Germany"
+                                  maxSearchResults={5}
+                                  onUpdateInput={this.onChange}
+                                  onNewRequest={this.onNewRequest}
+                                  dataSourceConfig={{text: 'name', value: 'alpha2Code'}}
+                                  dataSource={countries}
+                                  tabIndex="-1"
+                                  fullWidth />
+                </div>
                 <div>
                     <RaisedButton className="continue-button"
                                   disabled={!this.state.set}

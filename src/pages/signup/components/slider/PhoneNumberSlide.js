@@ -54,12 +54,13 @@ class PhoneNumberSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
-                <Field name="phoneNumber"
-                       flagsImagePath="/public/assets/img/flags.png"
-                       defaultCountry={selectedCountry}
-                       onInputChange={this.onInputChange}
-                       component={TelephoneInput} fullWidth tabIndex="-1" />
-
+                <div className="signup-field-group">
+                    <Field name="phoneNumber"
+                           flagsImagePath="/public/assets/img/flags.png"
+                           defaultCountry={selectedCountry}
+                           onInputChange={this.onInputChange}
+                           component={TelephoneInput} fullWidth tabIndex="-1" />
+                </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
                                   disabled={pristine}

@@ -41,8 +41,9 @@ class LegalSlide extends Component {
 
                 <div className="mdc-typography--headline">Terms and Conditions</div>
 
-                <Field name="agreeToTerms" onCheck="" label="I agree to terms and conditions" component={Checkbox} tabIndex="-1" />
-
+                <div className="signup-field-group">
+                    <Field name="agreeToTerms" onCheck="" label="I agree to terms and conditions" component={Checkbox} tabIndex="-1" />
+                </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
                                   disabled={pristine}

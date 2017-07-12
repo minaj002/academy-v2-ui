@@ -21,11 +21,12 @@ class GenderSlide extends Component {
 
                 <div className="mdc-typography--headline">What's your gender?</div>
 
-                <Field name="gender" component={RadioButtonGroup} tabIndex="-1">
-                    <RadioButton value="M" label="Male" />
-                    <RadioButton value="F" label="Female" />
-                </Field>
-
+                <div className="signup-field-group">
+                    <Field name="gender" component={RadioButtonGroup} tabIndex="-1">
+                        <RadioButton value="M" label="Male" />
+                        <RadioButton value="F" label="Female" />
+                    </Field>
+                </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
                                   disabled={pristine}

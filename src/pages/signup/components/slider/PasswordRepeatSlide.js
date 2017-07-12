@@ -35,7 +35,9 @@ class PasswordRepeatSlide extends Component {
 
                 <div className="mdc-typography--headline">Confirm your password</div>
 
-                <Field name="passwordRepeat" type="password" hintText="********" component={TextField} fullWidth tabIndex="-1" />
+                <div className="signup-field-group">
+                    <Field name="passwordRepeat" type="password" hintText="********" component={TextField} fullWidth tabIndex="-1" />
+                </div>
 
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"

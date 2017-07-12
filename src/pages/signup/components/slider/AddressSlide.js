@@ -56,30 +56,33 @@ class AddressSlide extends Component {
 
                 <div className="mdc-typography--headline">Where should we send your card?</div>
 
-                <Row>
-                    <Col lg={12}>
+                <div className="signup-field-group">
+                    <Row>
+                        <Col lg={12}>
 
-                        <Field name="line1" hintText="" floatingLabelText="Street" floatingLabelFixed={true}
-                               onItemSelected = {this.onItemSelected}
-                               component={GooglePlaceAutocomplete}
-                               fullWidth tabIndex="-1" />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg={4}>
-                        <Field name="city" hintText="" floatingLabelText="City" floatingLabelFixed={true}
-                               component={TextField} fullWidth tabIndex="-1" />
-                    </Col>
-                    <Col lg={4}>
-                        <Field name="postalCode" hintText="" floatingLabelText="Post index" floatingLabelFixed={true}
-                               component={TextField} fullWidth tabIndex="-1" />
-                    </Col>
-                    {/*<Col lg={4}>
-                        <Field name="country" hintText="" floatingLabelText="Country" floatingLabelFixed={true}
-                               disabled
-                               component={TextField} fullWidth tabIndex="-1" />
-                    </Col>*/}
-                </Row>
+                            <Field name="line1" hintText="" floatingLabelText="Street" floatingLabelFixed={true}
+                                   onItemSelected = {this.onItemSelected}
+                                   component={GooglePlaceAutocomplete}
+                                   fullWidth tabIndex="-1" />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col lg={4}>
+                            <Field name="city" hintText="" floatingLabelText="City" floatingLabelFixed={true}
+                                   component={TextField} fullWidth tabIndex="-1" />
+                        </Col>
+                        <Col lg={4}>
+                            <Field name="postalCode" hintText="" floatingLabelText="Post index" floatingLabelFixed={true}
+                                   component={TextField} fullWidth tabIndex="-1" />
+                        </Col>
+                        {/*<Col lg={4}>
+                            <Field name="country" hintText="" floatingLabelText="Country" floatingLabelFixed={true}
+                                   disabled
+                                   component={TextField} fullWidth tabIndex="-1" />
+                        </Col>*/}
+                    </Row>
+
+                </div>
 
 
                 <div>

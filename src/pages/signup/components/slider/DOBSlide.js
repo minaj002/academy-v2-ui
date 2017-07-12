@@ -21,9 +21,10 @@ class DOBSlide extends Component {
 
                 <div className="mdc-typography--headline">When is your birthday?</div>
 
-                <Field name="dob" hintText="e.g 1989-01-01" maxDate={new Date()} component={DatePicker}
+                <div className="signup-field-group">
+                    <Field name="dob" hintText="e.g 1989-01-01" maxDate={new Date()} component={DatePicker}
                        fullWidth format={null} tabIndex="-1" />
-
+                </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
                                   disabled={pristine}
