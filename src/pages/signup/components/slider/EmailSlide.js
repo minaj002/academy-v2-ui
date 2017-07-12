@@ -7,6 +7,8 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
+import { verifyEmail } from '../../../../actions/signup';
 
 const validate = values => {
     const errors = {};
@@ -20,22 +22,37 @@ const validate = values => {
     return errors;
 };
 
+const asyncValidate = (values, dispatch) => {
+    return dispatch(verifyEmail(values.email)).catch((err) => {
+        throw {email: 'Not a correct email address'}
+    });
+};
+
 class EmailSlide extends Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
 
-        const { handleSubmit, pristine } = this.props;
+        const { pristine, handleSubmit, isFetching } = this.props;
+
+        console.log(isFetching);
+
+        const progress = isFetching ? <CircularProgress size={24}/> : null;
 
         return (
             <form onSubmit={handleSubmit}>
 
                 <div className="mdc-typography--headline">What's your email address?</div>
 
-                <Field name="email" hintText="e.g john@example.com" component={TextField} fullWidth tabIndex="-1" />
+                <Field name="email" withRef ref="email" hintText="e.g john@example.com" component={TextField} fullWidth tabIndex="-1" />
 
                 <div>
-                    <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
-                                  disabled={pristine}
+                    <RaisedButton type="submit" className="continue-button"
+                                  disabled={pristine || isFetching}
+                                  icon={progress}
                                   primary label="Continue" />
                 </div>
 
@@ -44,9 +61,16 @@ class EmailSlide extends Component {
     }
 }
 
+
+const mapStateToProps = (state) => ({
+    isFetching: state.signup.isFetching
+});
+
 EmailSlide = reduxForm({
     form: 'EmailSlide',
-    validate
+    validate,
+    asyncValidate,
+    asyncBlurFields: []
 })(EmailSlide);
 
-export default connect() (EmailSlide);
+export default connect(mapStateToProps) (EmailSlide);

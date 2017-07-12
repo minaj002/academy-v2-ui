@@ -59,7 +59,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --hot --inline",
-    "start:cloud": "webpack-dev-server --hot --inline --env.api_url=https://bbk.servers.weststeincard.com/api/",
+    "start:cloud": "webpack-dev-server --hot --inline --env.api_url=http://server-env-ws3.eu-central-1.elasticbeanstalk.com/api/",
     "build": "webpack -p --config ./webpack.production.config.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

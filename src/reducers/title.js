@@ -6,7 +6,7 @@ import {createReducer} from '../utils';
 import {SET_TITLE} from '../constants';
 
 let initialState = {
-    text: "Weststein CRM"
+    text: "Weststein"
 };
 
 export default createReducer(initialState, {

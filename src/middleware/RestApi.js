@@ -13,7 +13,10 @@ export default function doFetch(endpoint, configuration, authenticated) {
     return (dispatch) => new Promise((resolve, reject) => {
 
         let token = localStorage.getItem('token');
-        let config = {headers: {'Content-Type': 'application/json'}};
+        let config = {
+            headers: {'Content-Type': 'application/json'},
+            method: 'GET'
+        };
 
         if (authenticated) {
             if (token) {
@@ -25,8 +28,9 @@ export default function doFetch(endpoint, configuration, authenticated) {
 
         fetch(baseUrl + endpoint, Object.assign(config, configuration))
             .then((response) => {
+
             if (response.ok) {
-                return resolve(response.json())
+                return resolve(response)
             }
 
             return response.json().then(json => {
