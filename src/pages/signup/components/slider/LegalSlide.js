@@ -3,33 +3,42 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Checkbox } from 'redux-form-material-ui';
+import { Checkbox } from 'material-ui';
+
 /*const validate = values => {
     const errors = {};
-    if (!values.email) {
-        errors.email = "Email is required"
-    }
-    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Email is not correct"
+
+    if (!values.agreeToTerms) {
+        errors.agreeToTerms = "You must agree to terms and conditions"
     }
 
     return errors;
 };*/
+
+const CheckBoxField = ({ input, meta, ...custom }) => (
+    <Checkbox {...input} {...custom} />
+);
 
 class LegalSlide extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            checked: false
+            agreeToTerms: false
         }
     }
 
-    onCheck = () => {
+    handleSubmit = () => {
+        let data = Object.assign(this.props.data, this.state);
+        this.props.history.push('/signup/success');
+    };
 
+    onCheck = (e, checked) => {
+        this.setState({agreeToTerms: checked});
     };
 
     render() {
@@ -37,23 +46,29 @@ class LegalSlide extends Component {
         const { handleSubmit, pristine } = this.props;
 
         return (
-            <form onSubmit={handleSubmit}>
+            <form>
 
                 <div className="mdc-typography--headline">Terms and Conditions</div>
 
                 <div className="signup-field-group">
-                    <Field name="agreeToTerms" onCheck="" label="I agree to terms and conditions" component={Checkbox} tabIndex="-1" />
+                    <Field onCheck={this.onCheck} defaultChecked={false} name="agreeToTerms"
+                           label="I agree to terms and conditions" component={CheckBoxField} tabIndex="-1" />
                 </div>
                 <div>
-                    <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"
-                                  disabled={pristine}
-                                  primary label="Continue" />
+                    <RaisedButton onTouchTap={this.handleSubmit} className="continue-button"
+                                  disabled={!this.state.agreeToTerms}
+                                  primary label="Open my account" />
                 </div>
 
             </form>
         );
     }
 }
+
+LegalSlide.propTypes = {
+    data: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+};
 
 LegalSlide = reduxForm({
     form: 'LegalSlide'

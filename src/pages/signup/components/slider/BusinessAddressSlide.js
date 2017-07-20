@@ -29,7 +29,7 @@ const validate = values => {
     return errors;
 };
 
-class AddressSlide extends Component {
+class BusinessAddressSlide extends Component {
 
     constructor(props) {
         super(props);
@@ -42,8 +42,8 @@ class AddressSlide extends Component {
     }
 
     onItemSelected = (item) => {
-        this.props.dispatch(change('AddressSlide', 'city', item.city));
-        this.props.dispatch(change('AddressSlide', 'postalCode', item.postalCode));
+        this.props.dispatch(change('BusinessAddressSlide', 'city', item.city));
+        this.props.dispatch(change('BusinessAddressSlide', 'postalCode', item.postalCode));
     };
 
     render() {
@@ -53,7 +53,7 @@ class AddressSlide extends Component {
         return (
             <form onSubmit={handleSubmit}>
 
-                <div className="mdc-typography--headline">Where should we send your card?</div>
+                <div className="mdc-typography--headline">Where's your company located?</div>
 
                 <div className="signup-field-group">
                     <Row>
@@ -95,14 +95,14 @@ class AddressSlide extends Component {
     }
 }
 
-AddressSlide.propTypes = {
+BusinessAddressSlide.propTypes = {
    country: PropTypes.string
 };
 
-AddressSlide = reduxForm({
-    form: 'AddressSlide',
+BusinessAddressSlide = reduxForm({
+    form: 'BusinessAddressSlide',
     validate
-})(AddressSlide);
+})(BusinessAddressSlide);
 
-export default connect() (AddressSlide);
+export default connect() (BusinessAddressSlide);
 

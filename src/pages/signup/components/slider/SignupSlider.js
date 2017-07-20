@@ -13,19 +13,31 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
 import SliderMenu from './SliderMenu';
-import EmailSlide from './EmailSlide';
+import EnterPriseNameSlide from './EnterPriseNameSlide';
+import LegalStatusSlide from './LegalStatusSlide';
+import CountrySlide from './CountrySlide';
+import EnterpriseCountrySlide from './EnterpriseCountrySlide';
+import RegistrationNumberSlide from './RegistrationNumberSlide';
+import RegistrationDateSlide from './RegistrationDateSlide';
+import BusinessAddressSlide from './BusinessAddressSlide';
+import PositionSlide from './PositionSlide';
 import FirstNameSlide from './FirstNameSlide';
 import LastNameSlide from './LastNameSlide';
+import EmailSlide from './EmailSlide';
+import PhoneNumberSlide from './PhoneNumberSlide';
+import LegalSlide from './LegalSlide';
+
+/*
+
 import DOBSlide from './DOBSlide';
 import PasswordSlide from './PasswordSlide';
 import PasswordRepeatSlide from './PasswordRepeatSlide';
 import PhoneNumberSlide from './PhoneNumberSlide';
 import AddressSlide from './AddressSlide';
-import CountrySlide from './CountrySlide';
-import LegalSlide from './LegalSlide';
-import GenderSlide from './GenderSlide';
 
+import GenderSlide from './GenderSlide';*/
 
+const slidesCount = 13;
 const sliderSettings = {
     accessibility: false,
     infinite: false,
@@ -63,23 +75,22 @@ class SignupSlider extends Component {
             current: id,
             data: Object.assign(this.state.data, data)
         });
-
-        console.log(this.state.data);
     };
 
     onMenuItemTouchTap = (id) => {
         this.moveTo(id);
     };
 
-    handleSubmit = (id, data) => {
-        this.next(id+1, data);
+    collectData = (id, data) => {
+        const next = id+1;
+        if (this.state.current<=next && next<slidesCount) {
+            this.next(next, data);
+        }
     };
 
     next = (id, data) => {
-        if (this.state.current<=id) {
-            this.slider.slickNext();
-            this.props.setTimeout(() => this.updateState(id, data), 500); //todo: use promise instead
-        }
+        this.slider.slickNext();
+        this.props.setTimeout(() => this.updateState(id, data), 500); //todo: use promise instead
     };
 
     moveTo = (id) => {
@@ -97,11 +108,91 @@ class SignupSlider extends Component {
                 <Col xs sm={8} md={6} lg={6}>
                     <Row className="slider-wrapper">
                         <Col lg={12}>
-                            <Slider ref={c => this.slider = c }  {...sliderSettings}>
+                            <Slider ref={c => this.slider = c } {...sliderSettings}>
 
-                                {/* Intro  */}
+                                {/* Enterprise  */}
 
                                 <div>
+                                    <div className="signup-block">
+                                        <EnterpriseCountrySlide handleSubmit={(data) => this.collectData(0, data)}/>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <EnterPriseNameSlide onSubmit={(data) => this.collectData(1, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <RegistrationNumberSlide onSubmit={(data) => this.collectData(2, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <LegalStatusSlide onSubmit={(data) => this.collectData(3, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <RegistrationDateSlide onSubmit={(data) => this.collectData(4, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <BusinessAddressSlide country={this.state.data.country} onSubmit={(data) => this.collectData(5, data)} />
+                                    </div>
+                                </div>
+
+                                {/* Personal */}
+
+                                <div>
+                                    <div className="signup-block">
+                                        <FirstNameSlide onSubmit={(data) => this.collectData(6, data)}/>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <LastNameSlide onSubmit={(data) => this.collectData(7, data)}/>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <EmailSlide onSubmit={(data) => this.collectData(8, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <CountrySlide handleSubmit={(data) => this.collectData(9, data)}/>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.collectData(10, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <PositionSlide onSubmit={(data) => this.collectData(11, data)} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="signup-block">
+                                        <LegalSlide data={this.state.data} history={this.props.history} />
+                                    </div>
+                                </div>
+
+                                {/*<div>
                                     <div className="signup-block">
                                             <EmailSlide onSubmit={(data) => this.handleSubmit(0, data)} />
                                     </div>
@@ -140,11 +231,11 @@ class SignupSlider extends Component {
                                     <div className="signup-block">
                                         <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.handleSubmit(7, data)}/>
                                     </div>
-                                </div>
+                                </div>*/}
 
                                 {/* Contact */}
 
-                                <div>
+                                {/*<div>
                                     <div className="signup-block">
                                         <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.handleSubmit(8, data)} />
                                     </div>
@@ -153,15 +244,15 @@ class SignupSlider extends Component {
                                     <div className="signup-block">
                                         <AddressSlide country={this.state.data.country} onSubmit={(data) => this.handleSubmit(9, data)} />
                                     </div>
-                                </div>
+                                </div>*/}
 
                                 {/* Legal */}
 
-                                <div>
+                                {/*<div>
                                     <div className="signup-block">
-                                        <LegalSlide onSubmit={(data) => this.handleSubmit(10, data)} />
+                                        <LegalSlide data={this.props.data} />
                                     </div>
-                                </div>
+                                </div>*/}
                             </Slider>
                         </Col>
                     </Row>
@@ -171,10 +262,9 @@ class SignupSlider extends Component {
     }
 }
 
-/*SignupSlider.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-};*/
-
+SignupSlider.propTypes = {
+    history: PropTypes.object.isRequired,
+};
 
 export default ReactTimeout(SignupSlider);
 

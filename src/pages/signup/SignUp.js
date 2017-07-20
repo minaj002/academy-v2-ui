@@ -15,6 +15,7 @@ class SignUp extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
     }
 
     componentWillMount() {
@@ -25,7 +26,7 @@ class SignUp extends Component {
     render() {
         return (
             <div id="signup">
-                <SignupSlider/>
+                <SignupSlider history={this.props.history}  />
             </div>
         )
     }

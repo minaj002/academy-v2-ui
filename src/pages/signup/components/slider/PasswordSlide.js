@@ -2,12 +2,12 @@
  * Created by artis on 21/06/2017.
  */
 
-
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import PasswordField from '../fields/PasswordField';
+
 
 const validate = values => {
     const errors = {};

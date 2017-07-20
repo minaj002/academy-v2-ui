@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import countries from '../../../../data/countries.json';
 
-class CountrySlide extends Component {
+class EnterpriseCountrySlide extends Component {
 
     constructor(props) {
         super(props);
@@ -38,7 +38,7 @@ class CountrySlide extends Component {
         return (
             <div>
 
-                <div className="mdc-typography--headline">Which country do you live?</div>
+                <div className="mdc-typography--headline">Which country is your company registered?</div>
 
                 <div className="signup-field-group">
                     <AutoComplete name="country" hintText="e.g. Germany"
@@ -46,8 +46,8 @@ class CountrySlide extends Component {
                                   onUpdateInput={this.onChange}
                                   onNewRequest={this.onNewRequest}
                                   dataSourceConfig={{text: 'name', value: 'alpha2Code'}}
-                                  dataSource={countries}
                                   filter={AutoComplete.caseInsensitiveFilter}
+                                  dataSource={countries}
                                   tabIndex="-1"
                                   fullWidth />
                 </div>
@@ -67,6 +67,6 @@ class CountrySlide extends Component {
     form: 'CountrySlide'
 })(CountrySlide);*/
 
-export default connect() (CountrySlide);
+export default connect() (EnterpriseCountrySlide);
 
 
