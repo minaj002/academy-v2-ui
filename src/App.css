@@ -69,6 +69,14 @@ p.no-content-info svg {
     font-size: 12px;
 }
 
+.push-middle {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Responsive */
 
 @media screen and (max-width: 600px){

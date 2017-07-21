@@ -61,6 +61,26 @@
     height: 100px !important;
 }
 
+/* Signup confirm */
+
+#signup-confirm .card {
+    margin-top:15px;
+}
+
+#signup-confirm .card .check-wrapper {
+    text-align: center;
+    margin-top: 15px !important;
+}
+
+#signup-confirm .card .check-icon {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+#signup-confirm .card .form {
+    margin: 0 1em 0.5em 1em;
+}
+
 /* Password input */
 .password-subheading-wrap {
     display: flex;

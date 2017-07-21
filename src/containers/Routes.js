@@ -7,6 +7,7 @@ import {Route} from 'react-router-dom';
 import Login from '../pages/login/Login';
 import SignUp from '../pages/signup/SignUp';
 import SignUpSuccess from '../pages/signup/SignUpSuccess';
+import SignUpConfirm from '../pages/signup/confirm/SignUpConfirm';
 import { requiresAuth } from './RequiresAuth';
 
 const Routes = (props) => {
@@ -20,6 +21,7 @@ const Routes = (props) => {
             <Route exact path="/" component={SignUp} />
             <Route exact path="/signup" component={SignUp} />
             <Route path="/signup/success" component={SignUpSuccess} />
+            <Route path="/signup/confirm/:token" component={SignUpConfirm} />
             <Route path="/login" component={(props) => <Login {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
 

@@ -12,17 +12,4 @@ const CountryAutoComplete = ({ input, label, meta: { touched, error }, ...custom
                   {...custom} />
 );
 
-/*class CountryAutoComplete extends Component {
-
-    render() {
-
-        const {meta, input, ...props} = this.props;
-
-        return (
-
-        )
-    }
-
-}*/
-
 export default CountryAutoComplete;
