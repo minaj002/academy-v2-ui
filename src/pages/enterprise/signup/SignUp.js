@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setTitle } from '../../actions/index';
+import { setTitle } from '../../../actions/index';
 import ReactTimeout from 'react-timeout';
 
 import SignupSlider from './components/slider/SignupSlider';

@@ -9,41 +9,71 @@ import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Row, Col} from 'react-flexbox-grid';
-import GooglePlaceAutocomplete from '../GooglePlaceAutoComplete';
+import GooglePlaceAutocomplete from '../../../../../components/fields/GooglePlaceAutoComplete';
 import { change } from 'redux-form';
+import countries from '../../../../../data/countries.json';
 
 const validate = values => {
     const errors = {};
-    if (!values.line1) {
-        errors.line1 = "Street is required"
-    }
 
-    if (!values.city) {
-        errors.city = "City is required"
-    }
+    /*if (values.address) {
+        if (!values.address.line1) {
+            errors.address.line1 = "Street is required"
+        }
 
-    if (!values.postalCode) {
-        errors.postalCode = "Post code is required"
-    }
+        if (!values.address.city) {
+            errors.address.city = "City is required"
+        }
+
+        if (!values.address.postalCode) {
+            errors.address.postalCode = "Post code is required"
+        }
+    }*/
 
     return errors;
 };
+
+/*function getCountry(countryCode) {
+    for (let c of countries) {
+        if (c.alpha2Code===countryCode) {
+            return c;
+        }
+    }
+
+    return null;
+}*/
 
 class BusinessAddressSlide extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            country: {}
         };
-
-        this._autoCompleteService = new google.maps.places.AutocompleteService();
-        this._geocoder = new google.maps.Geocoder();
     }
 
+    /*componentDidMount() {
+        const country = getCountry(this.props.country);
+        this.props.initialize({
+            "address.country": country.alpha2Code
+        });
+
+        this.setState({country: country});
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.country && this.props.country!==nextProps.country) {
+            const country = getCountry(nextProps.country);
+            this.setState({country: country});
+            this.props.dispatch(change('BusinessAddressSlide', 'address.country', country.alpha2Code));
+        }
+    }*/
+
     onItemSelected = (item) => {
-        this.props.dispatch(change('BusinessAddressSlide', 'city', item.city));
-        this.props.dispatch(change('BusinessAddressSlide', 'postalCode', item.postalCode));
+        this.props.dispatch(change('BusinessAddressSlide', 'address.line1', item.line1));
+        this.props.dispatch(change('BusinessAddressSlide', 'address.city', item.city));
+        this.props.dispatch(change('BusinessAddressSlide', 'address.postalCode', item.postalCode));
+        //const address = Object.assign(this.state.address, item);
     };
 
     render() {
@@ -59,23 +89,24 @@ class BusinessAddressSlide extends Component {
                     <Row>
                         <Col lg={12}>
 
-                            <Field name="line1" hintText="" floatingLabelText="Street" floatingLabelFixed={true}
+                            <Field name="address.line1" hintText="" floatingLabelText="Street" floatingLabelFixed={true}
                                    onItemSelected = {this.onItemSelected}
+                                   country={this.props.country}
                                    component={GooglePlaceAutocomplete}
                                    fullWidth tabIndex="-1" />
                         </Col>
                     </Row>
                     <Row>
                         <Col lg={4}>
-                            <Field name="city" hintText="" floatingLabelText="City" floatingLabelFixed={true}
+                            <Field name="address.city" hintText="" floatingLabelText="City" floatingLabelFixed={true}
                                    component={TextField} fullWidth tabIndex="-1" />
                         </Col>
                         <Col lg={4}>
-                            <Field name="postalCode" hintText="" floatingLabelText="Post index" floatingLabelFixed={true}
+                            <Field name="address.postalCode" hintText="" floatingLabelText="Postal code" floatingLabelFixed={true}
                                    component={TextField} fullWidth tabIndex="-1" />
                         </Col>
                         {/*<Col lg={4}>
-                            <Field name="country" hintText="" floatingLabelText="Country" floatingLabelFixed={true}
+                            <Field name="address.country" hintText={this.state.country.name} floatingLabelText="Country" floatingLabelFixed={true}
                                    disabled
                                    component={TextField} fullWidth tabIndex="-1" />
                         </Col>*/}

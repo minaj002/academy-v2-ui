@@ -35,7 +35,8 @@ class GooglePlaceAutoComplete extends Component {
     onUpdateInput = (val) => {
         let instance = this;
         if (val.length>0) {
-            this._autoCompleteService.getPlacePredictions({input: val, types: ['geocode']}, function (predictions) {
+            this._autoCompleteService.getPlacePredictions({input: val, componentRestrictions:
+                {country: this.props.country}, types: ['geocode']}, function (predictions) {
                 if (predictions) {
                     instance.populateData(predictions);
                 }
@@ -48,8 +49,11 @@ class GooglePlaceAutoComplete extends Component {
         this._geocoder.geocode({placeId: item.place_id}, function (results, status) {
             if (results) {
                 let addressComp = results[0].address_components;
+                console.log(addressComp);
                 let city;
                 let postalCode;
+                let streetName;
+                let streetNumber;
 
                 for (let i=0; i<addressComp.length; i++) {
                     if (addressComp[i].types.indexOf("postal_code")!==-1) {
@@ -58,16 +62,24 @@ class GooglePlaceAutoComplete extends Component {
                     if (addressComp[i].types.indexOf("locality")!==-1) {
                         city = addressComp[i].long_name;
                     }
+                    if (addressComp[i].types.indexOf("street_number")!==-1) {
+                        streetNumber = addressComp[i].long_name;
+                    }
+                    if (addressComp[i].types.indexOf("route")!==-1) {
+                        streetName = addressComp[i].long_name;
+                    }
                 }
 
-                instance.props.onItemSelected({city: city, postalCode: postalCode});
+                let street = streetName + (streetNumber? " " + streetNumber : '');
+
+                instance.props.onItemSelected({city: city, postalCode: postalCode, line1: street});
             }
         });
     };
 
     render() {
 
-        const {input, meta: {touched, error}, onItemSelected,  ...custom} = this.props;
+        const {input, meta: {touched, error}, onItemSelected, country,  ...custom} = this.props;
 
         return (
             <AutoComplete
@@ -97,7 +109,8 @@ class GooglePlaceAutoComplete extends Component {
 }
 
 GooglePlaceAutoComplete.PropTypes = {
-    onItemSelected: PropTypes.func.isRequired
+    onItemSelected: PropTypes.func.isRequired,
+    country: PropTypes.string.isRequired
 };
 
 export default GooglePlaceAutoComplete;

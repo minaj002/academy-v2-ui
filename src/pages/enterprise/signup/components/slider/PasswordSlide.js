@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import PasswordField from '../fields/PasswordField';
+import PasswordField from '../../../../../components/fields/PasswordField';
 
 
 const validate = values => {

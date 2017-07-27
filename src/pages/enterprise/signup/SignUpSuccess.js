@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { setTitle } from '../../actions/index';
+import { setTitle } from '../../../actions/index';
 import DoneAllIcon from 'material-ui/svg-icons/action/done-all';
 import ReactTimeout from 'react-timeout';
 import { grey900, cyan500 } from 'material-ui/styles/colors';

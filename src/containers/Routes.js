@@ -5,9 +5,9 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import Login from '../pages/login/Login';
-import SignUp from '../pages/signup/SignUp';
-import SignUpSuccess from '../pages/signup/SignUpSuccess';
-import SignUpConfirm from '../pages/signup/confirm/SignUpConfirm';
+import SignUp from '../pages/enterprise/signup/SignUp';
+import SignUpSuccess from '../pages/enterprise/signup/SignUpSuccess';
+import SignUpConfirm from '../pages/enterprise/signup/confirm/SignUpConfirm';
 import { requiresAuth } from './RequiresAuth';
 
 const Routes = (props) => {

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Row, Col} from 'react-flexbox-grid';
-import GooglePlaceAutocomplete from '../GooglePlaceAutoComplete';
+import GooglePlaceAutocomplete from '../../../../../components/fields/GooglePlaceAutoComplete';
 import { change } from 'redux-form';
 
 const validate = values => {

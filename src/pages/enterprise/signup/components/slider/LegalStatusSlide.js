@@ -34,8 +34,6 @@ class LegalStatusSlide extends Component {
 
         const { handleSubmit, pristine } = this.props;
 
-        console.log(this.state);
-
         return (
 
             <form onSubmit={handleSubmit}>

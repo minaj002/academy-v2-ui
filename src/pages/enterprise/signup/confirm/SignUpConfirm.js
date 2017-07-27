@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { setTitle } from '../../../actions/index';
+import { setTitle } from '../../../../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card, {CardActions} from 'material-ui/Card';
 import { connect } from 'react-redux';
@@ -11,8 +11,10 @@ import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import { grey500, cyan500 } from 'material-ui/styles/colors';
 import { submit } from 'redux-form';
 import Form from './form';
-import LoadingRaisedButton from '../../../components/LoadingRaisedButton';
+import LoadingRaisedButton from '../../../../components/LoadingRaisedButton';
 import '../signup.css';
+import { SubmissionError } from 'redux-form';
+
 
 
 class SignUpConfirm extends Component {
@@ -72,7 +74,8 @@ class SignUpConfirm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    isFetching: state.businessSignup.isFetching
+    isFetching: state.businessSignup.isFetching,
+    //error: state.businessSignup.error
 });
 
 export default connect(mapStateToProps) (SignUpConfirm);

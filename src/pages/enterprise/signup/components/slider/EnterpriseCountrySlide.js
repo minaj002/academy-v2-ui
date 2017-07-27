@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
-import countries from '../../../../data/countries.json';
+import countries from '../../../../../data/countries.json';
 
 class EnterpriseCountrySlide extends Component {
 
@@ -14,14 +14,16 @@ class EnterpriseCountrySlide extends Component {
         super(props);
         this.state = {
             set: false,
-            data: { country: null }
+            data: {address: {
+                country: null
+            }}
         }
     }
 
     onNewRequest = (country) => {
         this.setState({
             set: true,
-            data: { country: country.alpha2Code }
+            data: { address: { country: country.alpha2Code }}
         });
     };
 
@@ -41,7 +43,7 @@ class EnterpriseCountrySlide extends Component {
                 <div className="mdc-typography--headline">Which country is your company registered?</div>
 
                 <div className="signup-field-group">
-                    <AutoComplete name="country" hintText="e.g. Germany"
+                    <AutoComplete name="address.country" hintText="e.g. Germany"
                                   maxSearchResults={5}
                                   onUpdateInput={this.onChange}
                                   onNewRequest={this.onNewRequest}

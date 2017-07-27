@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import { verifyEmail } from '../../../../actions/signup';
+import { verifyEmail } from '../../../../../actions/signup';
 
 const validate = values => {
     const errors = {};
@@ -37,8 +37,6 @@ class EmailSlide extends Component {
     render() {
 
         const { pristine, handleSubmit, isFetching } = this.props;
-
-        console.log(isFetching);
 
         const progress = isFetching ? <CircularProgress size={24}/> : null;
 

@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import TelephoneInput from './../phoneInput/withStyles';
+import TelephoneInput from '../../../../../components/fields/phone/withStyles';
 import GoogleLibPhoneNumber from 'google-libphonenumber';
+import PhoneNumber from '../../../../../components/fields/phoneNumber/PhoneNumber';
 
 let countryFromInput;
 const PhoneNumberUtil = GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
@@ -17,7 +18,7 @@ const validate = (values) => {
 
     const errors = {};
 
-    if (countryFromInput) {
+    /*if (countryFromInput) {
         let numberProto;
         try {
             numberProto = PhoneNumberUtil.parse(values.phoneNumber, countryFromInput.iso2);
@@ -29,20 +30,24 @@ const validate = (values) => {
             errors.phoneNumber = "Please input phone number correctly";
 
         }
-    }
+    }*/
 
     return errors;
 };
 
 class PhoneNumberSlide extends Component {
 
-    componentWillReceiveProps(nextProps) {
-        countryFromInput = nextProps.selectedCountry;
+    componentWillMount() {
+        countryFromInput = this.props.selectedCountry;
     }
 
-    onInputChange = (number, country) => {
+    /*onInputChange = (number, country) => {
         countryFromInput = country;
-    };
+    };*/
+
+    /*shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.selectedCountry !== this.props.selectedCountry;
+    }*/
 
     render() {
 
@@ -56,10 +61,8 @@ class PhoneNumberSlide extends Component {
 
                 <div className="signup-field-group">
                     <Field name="phoneNumber"
-                           flagsImagePath="/public/assets/img/flags.png"
-                           defaultCountry={selectedCountry}
-                           onInputChange={this.onInputChange}
-                           component={TelephoneInput} fullWidth tabIndex="-1" />
+                           //onInputChange={this.onInputChange}
+                           component={PhoneNumber} fullWidth tabIndex="-1" />
                 </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"

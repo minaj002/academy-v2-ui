@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTimeout from 'react-timeout';
+import merge from 'lodash/merge';
 
 import { Row, Col } from 'react-flexbox-grid';
 
@@ -25,7 +26,7 @@ import FirstNameSlide from './FirstNameSlide';
 import LastNameSlide from './LastNameSlide';
 import EmailSlide from './EmailSlide';
 import PhoneNumberSlide from './PhoneNumberSlide';
-import LegalSlide from './LegalSlide';
+import TermsSlide from './TermsSlide';
 
 /*
 
@@ -66,15 +67,17 @@ class SignupSlider extends Component {
         super(props);
         this.state = {
             current: 0,
-            data: {country: '', password: ''}
+            data: {country: '', address: {}, password: ''}
         }
     }
 
     updateState = (id, data) => {
         this.setState({
             current: id,
-            data: Object.assign(this.state.data, data)
+            data: merge(this.state.data, data)
         });
+
+        console.log("data", this.state.data);
     };
 
     onMenuItemTouchTap = (id) => {
@@ -144,7 +147,7 @@ class SignupSlider extends Component {
 
                                 <div>
                                     <div className="signup-block">
-                                        <BusinessAddressSlide country={this.state.data.country} onSubmit={(data) => this.collectData(5, data)} />
+                                        <BusinessAddressSlide country={this.state.data.address.country} onSubmit={(data) => this.collectData(5, data)} />
                                     </div>
                                 </div>
 
@@ -188,7 +191,7 @@ class SignupSlider extends Component {
 
                                 <div>
                                     <div className="signup-block">
-                                        <LegalSlide data={this.state.data} history={this.props.history} />
+                                        <TermsSlide data={this.state.data} history={this.props.history} />
                                     </div>
                                 </div>
 

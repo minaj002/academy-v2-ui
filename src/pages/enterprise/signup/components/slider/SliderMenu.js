@@ -72,7 +72,7 @@ class SliderMenu extends Component {
 
     onTopLevelMenuTouchTap = (id) => {
         let menuItems = this.state.menuItems;
-        menuItems.map((item) => {
+        menuItems.map((item, key) => {
             if (item.id===id) {
                 item.props.open = true;
                 if (item.sub) {

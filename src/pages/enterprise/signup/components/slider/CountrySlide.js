@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
-import countries from '../../../../data/countries.json';
+import countries from '../../../../../data/countries.json';
 
 class CountrySlide extends Component {
 

@@ -90,7 +90,7 @@ export var ReactTelephoneInput = createReactClass({
         return {
             autoFormat: true,
             onlyCountries: allCountries,
-            defaultCountry: allCountries[0].iso2,
+            ///defaultCountry: allCountries[0].iso2,
             //isValid: isNumberValid,
             flagsImagePath: 'flags.png',
             onEnterKeyPress: function () {},
@@ -108,6 +108,7 @@ export var ReactTelephoneInput = createReactClass({
         return this.getNumber();
     },
     componentDidMount() {
+
         document.addEventListener('keydown', this.handleKeydown);
 
         this._cursorToEnd(true);
@@ -119,6 +120,7 @@ export var ReactTelephoneInput = createReactClass({
         return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
     },
     componentWillReceiveProps(nextProps) {
+        console.log("new props" , this.props, nextProps);
         this.setState(this._mapPropsToState(nextProps));
     },
     componentWillUnmount() {

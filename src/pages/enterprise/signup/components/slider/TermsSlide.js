@@ -8,6 +8,8 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Checkbox } from 'material-ui';
+import merge from 'lodash/merge';
+import { signup } from '../../../../../actions/business/signup';
 
 /*const validate = values => {
     const errors = {};
@@ -23,7 +25,7 @@ const CheckBoxField = ({ input, meta, ...custom }) => (
     <Checkbox {...input} {...custom} />
 );
 
-class LegalSlide extends Component {
+class TermsSlide extends Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +35,8 @@ class LegalSlide extends Component {
     }
 
     handleSubmit = () => {
-        let data = Object.assign(this.props.data, this.state);
+        let data = merge(this.props.data, this.state);
+        this.props.dispatch(signup(data));
         this.props.history.push('/signup/success');
     };
 
@@ -65,13 +68,13 @@ class LegalSlide extends Component {
     }
 }
 
-LegalSlide.propTypes = {
+TermsSlide.propTypes = {
     data: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
 };
 
-LegalSlide = reduxForm({
-    form: 'LegalSlide'
-})(LegalSlide);
+TermsSlide = reduxForm({
+    form: 'TermsSlide'
+})(TermsSlide);
 
-export default connect() (LegalSlide);
+export default connect() (TermsSlide);

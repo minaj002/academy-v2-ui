@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import {reduxForm} from 'redux-form';
-import CredentialsForm from '../../../components/forms/CredentialsForm';
+import CredentialsForm from '../../../../components/forms/CredentialsForm';
 import submit from './submit';
 
 const validate = values => {
