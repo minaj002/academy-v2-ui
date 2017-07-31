@@ -35,7 +35,7 @@ class EnterpriseCountrySlide extends Component {
 
     render() {
 
-        const { handleSubmit } = this.props;
+        const { onSubmit } = this.props;
 
         return (
             <div>
@@ -56,7 +56,7 @@ class EnterpriseCountrySlide extends Component {
                 <div>
                     <RaisedButton className="continue-button"
                                   disabled={!this.state.set}
-                                  onTouchTap={() => handleSubmit(this.state.data)}
+                                  onTouchTap={() => onSubmit(this.state.data)}
                                   primary label="Continue" />
                 </div>
 

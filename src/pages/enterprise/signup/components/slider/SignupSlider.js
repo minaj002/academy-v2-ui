@@ -27,18 +27,10 @@ import LastNameSlide from './LastNameSlide';
 import EmailSlide from './EmailSlide';
 import PhoneNumberSlide from './PhoneNumberSlide';
 import TermsSlide from './TermsSlide';
-
-/*
-
-import DOBSlide from './DOBSlide';
 import PasswordSlide from './PasswordSlide';
 import PasswordRepeatSlide from './PasswordRepeatSlide';
-import PhoneNumberSlide from './PhoneNumberSlide';
-import AddressSlide from './AddressSlide';
 
-import GenderSlide from './GenderSlide';*/
-
-const slidesCount = 13;
+const slidesCount = 15;
 const sliderSettings = {
     accessibility: false,
     infinite: false,
@@ -61,6 +53,28 @@ const sliderSettings = {
     ]
 };
 
+const menuItems = [
+    {id: 0, name: 'Enterprise', props: {disabled:false, open:true, checked: false}, sub: [
+        {id: 0, name: 'Country', props: {disabled: false}, active: true},
+        {id: 1, name: 'Enterprise name', props: {disabled: true}, active: false},
+        {id: 2, name: 'Registration number', props: {disabled: true}, active: false},
+        {id: 3, name: 'Legal status', props: {disabled: true}, active: false},
+        {id: 4, name: 'Registration date', props: {disabled: true}, active: false},
+        {id: 5, name: 'Address', props: {disabled: true}, active: false},
+    ]},
+    {id: 1, name: 'Personal', props: {disabled:true, open:false, checked: false}, sub: [
+        {id: 6, name: 'First name', props: {disabled: true}, active: false},
+        {id: 7, name: 'Last name', props: {disabled: true}, active: false},
+        {id: 8, name: 'Email', props: {disabled: true}, active: false},
+        {id: 9, name: 'Country', props: {disabled: true}, active: false},
+        {id: 10, name: 'Phone number', props: {disabled: true}, active: false},
+        {id: 11, name: 'Position', props: {disabled: true}, active: false},
+        {id: 12, name: 'Password', props: {disabled: true}, active: false},
+        {id: 13, name: 'Password repeat', props: {disabled: true}, active: false},
+        {id: 14, name: 'Terms', props: {disabled: true}, active: false}
+    ]}
+];
+
 class SignupSlider extends Component {
 
     constructor(props) {
@@ -76,8 +90,6 @@ class SignupSlider extends Component {
             current: id,
             data: merge(this.state.data, data)
         });
-
-        console.log("data", this.state.data);
     };
 
     onMenuItemTouchTap = (id) => {
@@ -103,159 +115,44 @@ class SignupSlider extends Component {
 
     render() {
 
+        const slides = [
+            /* Enterprise */
+            <EnterpriseCountrySlide onSubmit={(data) => this.collectData(0, data)}/>,
+            <EnterPriseNameSlide onSubmit={(data) => this.collectData(1, data)} />,
+            <RegistrationNumberSlide onSubmit={(data) => this.collectData(2, data)} />,
+            <LegalStatusSlide onSubmit={(data) => this.collectData(3, data)} />,
+            <RegistrationDateSlide onSubmit={(data) => this.collectData(4, data)} />,
+            <BusinessAddressSlide country={this.state.data.address.country} onSubmit={(data) => this.collectData(5, data)} />,
+            /* Personal */
+            <FirstNameSlide onSubmit={(data) => this.collectData(6, data)}/>,
+            <LastNameSlide onSubmit={(data) => this.collectData(7, data)}/>,
+            <EmailSlide onSubmit={(data) => this.collectData(8, data)} />,
+            <CountrySlide handleSubmit={(data) => this.collectData(9, data)}/>,
+            <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.collectData(10, data)} />,
+            <PositionSlide onSubmit={(data) => this.collectData(11, data)} />,
+            <PasswordSlide onSubmit={(data) => this.collectData(12, data)}/>,
+            <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.collectData(13, data)}/>,
+            <TermsSlide data={this.state.data} history={this.props.history} />
+        ];
+
         return (
             <Row>
                 <Col xs sm={4} md={3} lg={3} className="hide-mobile menu">
-                    <SliderMenu current={this.state.current} onMenuItemTouchTap={this.onMenuItemTouchTap} />
+                    <SliderMenu menuItems={menuItems} current={this.state.current} onMenuItemTouchTap={this.onMenuItemTouchTap} />
                 </Col>
                 <Col xs sm={8} md={6} lg={6}>
                     <Row className="slider-wrapper">
                         <Col lg={12}>
                             <Slider ref={c => this.slider = c } {...sliderSettings}>
-
-                                {/* Enterprise  */}
-
-                                <div>
-                                    <div className="signup-block">
-                                        <EnterpriseCountrySlide handleSubmit={(data) => this.collectData(0, data)}/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <EnterPriseNameSlide onSubmit={(data) => this.collectData(1, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <RegistrationNumberSlide onSubmit={(data) => this.collectData(2, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <LegalStatusSlide onSubmit={(data) => this.collectData(3, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <RegistrationDateSlide onSubmit={(data) => this.collectData(4, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <BusinessAddressSlide country={this.state.data.address.country} onSubmit={(data) => this.collectData(5, data)} />
-                                    </div>
-                                </div>
-
-                                {/* Personal */}
-
-                                <div>
-                                    <div className="signup-block">
-                                        <FirstNameSlide onSubmit={(data) => this.collectData(6, data)}/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <LastNameSlide onSubmit={(data) => this.collectData(7, data)}/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <EmailSlide onSubmit={(data) => this.collectData(8, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <CountrySlide handleSubmit={(data) => this.collectData(9, data)}/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.collectData(10, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <PositionSlide onSubmit={(data) => this.collectData(11, data)} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div className="signup-block">
-                                        <TermsSlide data={this.state.data} history={this.props.history} />
-                                    </div>
-                                </div>
-
-                                {/*<div>
-                                    <div className="signup-block">
-                                            <EmailSlide onSubmit={(data) => this.handleSubmit(0, data)} />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                            <CountrySlide handleSubmit={(data) => this.handleSubmit(1, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <FirstNameSlide onSubmit={(data) => this.handleSubmit(2, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <LastNameSlide onSubmit={(data) => this.handleSubmit(3, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <GenderSlide onSubmit={(data) => this.handleSubmit(4, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <DOBSlide onSubmit={(data) => this.handleSubmit(5, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <PasswordSlide onSubmit={(data) => this.handleSubmit(6, data)}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.handleSubmit(7, data)}/>
-                                    </div>
-                                </div>*/}
-
-                                {/* Contact */}
-
-                                {/*<div>
-                                    <div className="signup-block">
-                                        <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.handleSubmit(8, data)} />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="signup-block">
-                                        <AddressSlide country={this.state.data.country} onSubmit={(data) => this.handleSubmit(9, data)} />
-                                    </div>
-                                </div>*/}
-
-                                {/* Legal */}
-
-                                {/*<div>
-                                    <div className="signup-block">
-                                        <LegalSlide data={this.props.data} />
-                                    </div>
-                                </div>*/}
+                                {
+                                    slides.map((slide, i) =>
+                                        <div key={i}>
+                                            <div className="signup-block">
+                                                {slide}
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </Slider>
                         </Col>
                     </Row>

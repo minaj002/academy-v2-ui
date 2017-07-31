@@ -11,34 +11,6 @@ import CheckIcon from 'material-ui/svg-icons/action/check-circle';
 //cyan500 color for checked icon
 
 
-const menuItems = [
-    {id: 0, name: 'Enterprise', props: {disabled:false, open:true, checked: false}, sub: [
-        {id: 0, name: 'Country', props: {disabled: false}, active: true},
-        {id: 1, name: 'Enterprise name', props: {disabled: true}, active: false},
-        {id: 2, name: 'Registration number', props: {disabled: true}, active: false},
-        {id: 3, name: 'Legal status', props: {disabled: true}, active: false},
-        {id: 4, name: 'Registration date', props: {disabled: true}, active: false},
-        {id: 5, name: 'Address', props: {disabled: true}, active: false},
-    ]},
-    {id: 1, name: 'Personal', props: {disabled:true, open:false, checked: false}, sub: [
-        {id: 6, name: 'First name', props: {disabled: true}, active: false},
-        {id: 7, name: 'Last name', props: {disabled: true}, active: false},
-        {id: 8, name: 'Email', props: {disabled: true}, active: false},
-        {id: 9, name: 'Country', props: {disabled: true}, active: false},
-        {id: 10, name: 'Phone number', props: {disabled: true}, active: false},
-        {id: 11, name: 'Position', props: {disabled: true}, active: false},
-        {id: 12, name: 'Terms', props: {disabled: true}, active: false}
-    ]}
-
-    /*{id: 1, name: 'Contact', props: {disabled:true, open:false, checked: false}, sub: [
-        {id: 8, name: 'Phone number', props: {disabled: true}, active: false},
-        {id: 9, name: 'Address', props: {disabled: true}, active: false}
-    ]},
-    {id: 2, name: 'Legal', props: {disabled:true, open:false, checked: false}, sub:[
-        {id: 10, name: 'Terms and Conditions', props: {disabled: false}, active: true}
-    ]}*/
-];
-
 /*
  {id: 0, name: 'Email', props: {disabled: false}, active: true},
  {id: 1, name: 'Country', props: {disabled: true}, active: false},
@@ -55,7 +27,7 @@ class SliderMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuItems: menuItems
+            menuItems: this.props.menuItems
         }
     }
 
