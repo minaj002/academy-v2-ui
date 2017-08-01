@@ -7,47 +7,46 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import TelephoneInput from '../../../../../components/fields/phone/withStyles';
-import GoogleLibPhoneNumber from 'google-libphonenumber';
-import PhoneNumber from '../../../../../components/fields/phoneNumber/PhoneNumber';
+import { TextField } from 'redux-form-material-ui';
+import { asYouType, getPhoneCode, isValidNumber, parse } from 'libphonenumber-js';
 
 let countryFromInput;
-const PhoneNumberUtil = GoogleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
 const validate = (values) => {
 
     const errors = {};
 
-    /*if (countryFromInput) {
-        let numberProto;
-        try {
-            numberProto = PhoneNumberUtil.parse(values.phoneNumber, countryFromInput.iso2);
-            if (!PhoneNumberUtil.isValidNumber(numberProto)) {
-                errors.phoneNumber = "Please input phone number correctly";
-            }
-
-        } catch (e) {
-            errors.phoneNumber = "Please input phone number correctly";
-
+    if (!values.phoneNumber) {
+        errors.phoneNumber = 'Phone number is required';
+    } else {
+        //let parsed = parse(values.phoneNumber, );
+        if (!isValidNumber(values.phoneNumber)) {
+            errors.phoneNumber = 'Phone number is not valid';
         }
-    }*/
+    }
 
     return errors;
 };
 
 class PhoneNumberSlide extends Component {
 
-    componentWillMount() {
-        countryFromInput = this.props.selectedCountry;
+    constructor(props) {
+        super(props);
     }
 
-    /*onInputChange = (number, country) => {
-        countryFromInput = country;
-    };*/
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedCountry!=='' && this.props.selectedCountry!==nextProps.selectedCountry) {
+            countryFromInput = nextProps.selectedCountry;
+            let number = "+" + getPhoneCode(nextProps.selectedCountry) + " ";
+            this.props.change("phoneNumber", number);
+        }
+    }
 
-    /*shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.selectedCountry !== this.props.selectedCountry;
-    }*/
+    onInputChange = (e, value) => {
+        let val = new asYouType().input(value);
+        this.props.change("phoneNumber", val);
+        e.preventDefault();
+    };
 
     render() {
 
@@ -60,9 +59,9 @@ class PhoneNumberSlide extends Component {
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
                 <div className="signup-field-group">
-                    <Field name="phoneNumber"
-                           //onInputChange={this.onInputChange}
-                           component={PhoneNumber} fullWidth tabIndex="-1" />
+                    <Field name="phoneNumber" ref="phoneNumber" withRef
+                           onChange = {this.onInputChange}
+                           component={TextField} fullWidth tabIndex="-1" />
                 </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"

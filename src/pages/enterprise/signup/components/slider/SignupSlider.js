@@ -90,6 +90,8 @@ class SignupSlider extends Component {
             current: id,
             data: merge(this.state.data, data)
         });
+
+        console.log("data", this.state.data);
     };
 
     onMenuItemTouchTap = (id) => {
