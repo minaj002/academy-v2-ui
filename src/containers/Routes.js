@@ -8,6 +8,7 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/enterprise/signup/SignUp';
 import SignUpSuccess from '../pages/enterprise/signup/SignUpSuccess';
 import SignUpConfirm from '../pages/enterprise/signup/confirm/SignUpConfirm';
+import RemainingData from '../pages/enterprise/signup/remaining/RemainingData';
 import { requiresAuth } from './RequiresAuth';
 
 const Routes = (props) => {
@@ -19,9 +20,13 @@ const Routes = (props) => {
             {/*<Route exact path="/" component={requiresAuth(SignUp, isAuthenticated)} />*/}
 
             <Route exact path="/" component={SignUp} />
+
+            {/* Signup */}
             <Route exact path="/signup" component={SignUp} />
             <Route path="/signup/success" component={SignUpSuccess} />
             <Route path="/signup/confirm/:token" component={SignUpConfirm} />
+            <Route exact path="/signup/remain" component={RemainingData} />
+
             <Route path="/login" component={(props) => <Login {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
 

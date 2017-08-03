@@ -49,7 +49,6 @@ class GooglePlaceAutoComplete extends Component {
         this._geocoder.geocode({placeId: item.place_id}, function (results, status) {
             if (results) {
                 let addressComp = results[0].address_components;
-                console.log(addressComp);
                 let city;
                 let postalCode;
                 let streetName;
@@ -85,7 +84,6 @@ class GooglePlaceAutoComplete extends Component {
             <AutoComplete
                 errorText={touched && error}
                 onNewRequest={(selectedItem) => {
-                    console.log(selectedItem);
                     input.onChange(selectedItem.description);
                     this.onNewRequest(selectedItem);
                 }}
