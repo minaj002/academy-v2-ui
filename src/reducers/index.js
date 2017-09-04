@@ -9,6 +9,7 @@ import title from './title';
 import signup from './signup';
 import globalMessage from './globalMessage';
 import businessSignup from './business/signup';
+import businessSignupRemaining from './business/signupRemaining';
 
 export default combineReducers({
     auth,
@@ -16,6 +17,7 @@ export default combineReducers({
     globalMessage,
     signup,
     businessSignup,
+    businessSignupRemaining,
     form: formReducer,
 
 });

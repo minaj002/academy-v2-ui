@@ -37,7 +37,7 @@ class TermsSlide extends Component {
     handleSubmit = () => {
         let data = merge(this.props.data, this.state);
         this.props.dispatch(signup(data));
-        this.props.history.push('/signup/success');
+        //this.props.history.push('/signup/success');
     };
 
     onCheck = (e, checked) => {

@@ -22,10 +22,10 @@ const Routes = (props) => {
             <Route exact path="/" component={SignUp} />
 
             {/* Signup */}
-            <Route exact path="/signup" component={SignUp} />
-            <Route path="/signup/success" component={SignUpSuccess} />
-            <Route path="/signup/confirm/:token" component={SignUpConfirm} />
-            <Route exact path="/signup/remain" component={RemainingData} />
+            <Route exact path="/business/signup" component={SignUp} />
+            <Route path="/business/signup/success" component={SignUpSuccess} />
+            <Route path="/business/signup/confirm/:token" component={SignUpConfirm} />
+            <Route exact path="/business/:id/company-info" component={RemainingData} />
 
             <Route path="/login" component={(props) => <Login {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />

@@ -23,76 +23,54 @@ const RemainingDataForm = (props) => {
     };
 
     const onItemSelected = (item) => {
-        props.change("address.line1", item.line1);
-        props.change("address.city", item.city);
-        props.change("address.postalCode", item.postalCode);
+        props.change("registeredAddress.line1", item.line1);
+        props.change("registeredAddress.city", item.city);
+        props.change("registeredAddress.postalCode", item.postalCode);
     };
 
 
     const { handleSubmit } = props;
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Row>
-                <Col lg={4}>
-                    <Field name="legalName" floatingLabelText="Legal name" component={TextField} fullWidth/>
-                </Col>
-                <Col lg={4}>
-                    <Field name="tradingName" floatingLabelText="Trading name (if different)" component={TextField}
-                           fullWidth/>
-                </Col>
-                <Col lg={4}>
-                    <Field name="legalStatus" floatingLabelText="Legal status" component={TextField} fullWidth/>
-                </Col>
-            </Row>
-            <Row>
-                <Col lg={3}>
+        <form style={{width: '50%'}} onSubmit={handleSubmit}>
 
-                    <Field name="country" component={AutoComplete} floatingLabelText="Country" maxSearchResults={5}
-                           dataSourceConfig={{text: 'name', value: 'alpha2Code'}}
-                           dataSource={countries}
-                           filter={MUIAutoComplete.caseInsensitiveFilter}
-                           onNewRequest={onCountryNewRequest}
-                           onUpdateInput={onCountryChange} fullWidth />
+            <Field name="legalName" floatingLabelText="Legal name" component={TextField} fullWidth/>
 
-                </Col>
-                <Col lg={3}>
-                    <Field name="address.line1" floatingLabelText="Registered business address"
-                           component={GooglePlaceAutoComplete} onItemSelected={onItemSelected} fullWidth/>
-                </Col>
-                <Col lg={3}>
-                    <Field name="address.city" floatingLabelText="City"
-                           component={TextField} fullWidth/>
-                </Col>
-                <Col lg={3}>
-                    <Field name="address.postalCode" floatingLabelText="Postal code"
-                           component={TextField} fullWidth />
-                </Col>
+            <Field name="tradingName" floatingLabelText="Trading name (if different)" component={TextField}
+                   fullWidth/>
 
-            </Row>
+            <Field name="legalStatus" floatingLabelText="Legal status" component={TextField} fullWidth />
 
-            <Row>
+            <Field name="registeredAddress.country" component={AutoComplete} floatingLabelText="Country" maxSearchResults={5}
+                   dataSourceConfig={{text: 'name', value: 'alpha2Code'}}
+                   dataSource={countries}
+                   filter={MUIAutoComplete.caseInsensitiveFilter}
+                   onNewRequest={onCountryNewRequest}
+                   onUpdateInput={onCountryChange} fullWidth />
 
-                <Col lg={4}>
-                    <Field name="placeOfBusiness" floatingLabelText="Principal Place of Business (if different)"
-                           component={TextField} fullWidth />
-                </Col>
+            <Field name="registeredAddress.line1" floatingLabelText="Registered business address"
+                   component={GooglePlaceAutoComplete} onItemSelected={onItemSelected} fullWidth/>
 
-                <Col lg={4}>
-                    <Field name="businessLandlinePhone" floatingLabelText="Business Landline Phone"
-                           hintText="Start with country code"
-                           component={TextField} fullWidth />
-                </Col>
+            <Field name="registeredAddress.city" floatingLabelText="City"
+                   component={TextField} fullWidth/>
 
-                <Col lg={4}>
-                    <Field name="businessMobilePhone" floatingLabelText="Business Mobile Phone "
-                           hintText="Start with country code"
-                           component={TextField} fullWidth />
-                </Col>
+            <Field name="registeredAddress.postalCode" floatingLabelText="Postal code"
+                   component={TextField} fullWidth />
 
-            </Row>
+            <Field name="placeOfBusiness" floatingLabelText="Principal Place of Business (if different)"
+                   component={TextField} fullWidth />
 
-            <RaisedButton type="submit" label="Continue" primary />
+            <Field name="businessLandlinePhone" floatingLabelText="Business Landline Phone"
+                   hintText="Start with country code"
+                   component={TextField} fullWidth />
+
+            <Field name="businessMobilePhone" floatingLabelText="Business Mobile Phone "
+                   hintText="Start with country code"
+                   component={TextField} fullWidth />
+
+            <div>
+                <RaisedButton type="submit" label="Continue" primary />
+            </div>
 
         </form>
     )

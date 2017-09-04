@@ -77,12 +77,14 @@ export function signup(data) {
 
         dispatch(requestSignup());
 
+        console.log(data);
+
         return dispatch(doFetch(`${API_URL}apply/business`, config)).then((response) => {
             dispatch(receiveSignup())
             resolve(response);
         }).catch((error) => {
             dispatch(signupError(error))
-            reject(e);
+            reject(error);
         })
     });
 }

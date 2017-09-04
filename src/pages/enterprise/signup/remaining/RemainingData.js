@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setTitle } from '../../../../actions/index';
+import { signupRemaining } from '../../../../actions/business/signupRemaining';
 import RemainingDataForm from './RemainingDataForm';
 
 
@@ -15,12 +16,14 @@ class RemainingData extends Component {
     }
 
     onSubmit = (values) => {
-        console.log(values);
+        this.props.dispatch(signupRemaining(values));
     };
 
     render() {
         return (
-            <RemainingDataForm onSubmit={this.onSubmit}  />
+            <div className="push-middle">
+                <RemainingDataForm onSubmit={this.onSubmit}  />
+            </div>
         )
     }
 }
