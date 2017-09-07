@@ -44,7 +44,7 @@ export function loginUser(creds) {
             headers: {'Content-Type':'application/json'}
         };
 
-        fetch(`${API_URL}auth/login?${queryString}`, config)
+        fetch(`auth/login?${queryString}`, config)
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     return response

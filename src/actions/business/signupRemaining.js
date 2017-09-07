@@ -37,7 +37,7 @@ export function signupRemaining(id, data) {
 
         dispatch(requestSignupRemaining());
 
-        return dispatch(doFetch(`${API_URL}business/${id}/application/company-info`, config)).then((response) => {
+        return dispatch(doFetch(`business/${id}/application/company-info`, config)).then((response) => {
             dispatch(receiveSignupRemaining());
             resolve(response);
         }).catch((error) => {

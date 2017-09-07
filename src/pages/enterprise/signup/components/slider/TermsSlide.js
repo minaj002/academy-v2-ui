@@ -10,6 +10,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Checkbox } from 'material-ui';
 import merge from 'lodash/merge';
 import { signup } from '../../../../../actions/business/signup';
+import moment from 'moment';
+import LoadingRaisedButton from '../../../../../components/LoadingRaisedButton';
 
 /*const validate = values => {
     const errors = {};
@@ -30,23 +32,29 @@ class TermsSlide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            agreeToTerms: false
+            agree: false
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.success) {
+            this.props.history.push('/business/signup/success');
         }
     }
 
     handleSubmit = () => {
         let data = merge(this.props.data, this.state);
+        data.dateOfIncorporation = moment(data.dateOfIncorporation).format("DDMMYYYY");
         this.props.dispatch(signup(data));
-        //this.props.history.push('/signup/success');
     };
 
     onCheck = (e, checked) => {
-        this.setState({agreeToTerms: checked});
+        this.setState({agree: checked});
     };
 
     render() {
 
-        const { handleSubmit, pristine } = this.props;
+        const { handleSubmit, pristine, isFetching } = this.props;
 
         return (
             <form>
@@ -54,12 +62,12 @@ class TermsSlide extends Component {
                 <div className="mdc-typography--headline">Terms and Conditions</div>
 
                 <div className="signup-field-group">
-                    <Field onCheck={this.onCheck} defaultChecked={false} name="agreeToTerms"
+                    <Field onCheck={this.onCheck} defaultChecked={false} name="agree"
                            label="I agree to terms and conditions" component={CheckBoxField} tabIndex="-1" />
                 </div>
                 <div>
-                    <RaisedButton onTouchTap={this.handleSubmit} className="continue-button"
-                                  disabled={!this.state.agreeToTerms}
+                    <LoadingRaisedButton isFetching={isFetching} onTouchTap={this.handleSubmit} className="continue-button"
+                                  disabled={!this.state.agree}
                                   primary label="Open my account" />
                 </div>
 
@@ -77,4 +85,10 @@ TermsSlide = reduxForm({
     form: 'TermsSlide'
 })(TermsSlide);
 
-export default connect() (TermsSlide);
+const mapStateToProps = (state) => ({
+   success: state.businessSignup.success,
+   error: state.businessSignup.error,
+   isFetching: state.businessSignup.isFetching
+});
+
+export default connect(mapStateToProps) (TermsSlide);

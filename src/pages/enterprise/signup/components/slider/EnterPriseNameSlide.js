@@ -33,7 +33,7 @@ class EnterPriseNameSlide extends Component {
                 <div className="mdc-typography--headline">What's your enterprise name?</div>
 
                 <div className="signup-field-group">
-                    <Field name="enterPriseName" hintText="e.g My Company" component={TextField} fullWidth tabIndex="-1" />
+                    <Field name="enterpriseName" hintText="e.g My Company" component={TextField} fullWidth tabIndex="-1" />
                 </div>
                 <div>
                     <RaisedButton onTouchTap={() => handleSubmit()} className="continue-button"

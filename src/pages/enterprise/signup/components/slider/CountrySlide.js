@@ -14,14 +14,14 @@ class CountrySlide extends Component {
         super(props);
         this.state = {
             set: false,
-            data: { country: null }
+            data: { ownerCountry: null }
         }
     }
 
     onNewRequest = (country) => {
         this.setState({
             set: true,
-            data: { country: country.alpha2Code }
+            data: { ownerCountry: country.alpha2Code }
         });
     };
 
@@ -41,7 +41,7 @@ class CountrySlide extends Component {
                 <div className="mdc-typography--headline">Which country do you live?</div>
 
                 <div className="signup-field-group">
-                    <AutoComplete name="country" hintText="e.g. Germany"
+                    <AutoComplete name="ownerCountry" hintText="e.g. Germany"
                                   maxSearchResults={5}
                                   onUpdateInput={this.onChange}
                                   onNewRequest={this.onNewRequest}

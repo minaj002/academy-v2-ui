@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 const LoadingFetchingButton = ({isFetching, ...rest}) => {
-    return <RaisedButton icon={isFetching ? <CircularProgress size={24} /> : null} {...rest} />
+    return <RaisedButton  disabled={isFetching} icon={isFetching ? <CircularProgress size={24} /> : null} {...rest} />
 };
 
 LoadingFetchingButton.propTypes = {

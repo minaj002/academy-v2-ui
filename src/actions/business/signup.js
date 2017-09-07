@@ -54,7 +54,7 @@ export function verifySignup(token, query) {
 
         dispatch(requestVerifySignup());
 
-        return dispatch(doFetch(`${API_URL}auth/confirm/${token}?${queryString}`, {method: 'POST'})).then((response) => {
+        return dispatch(doFetch(`auth/confirm/${token}?${queryString}`, {method: 'POST'})).then((response) => {
             if (response.ok()) {
                 dispatch(receiveVerifySignup());
             }
@@ -77,13 +77,11 @@ export function signup(data) {
 
         dispatch(requestSignup());
 
-        console.log(data);
-
-        return dispatch(doFetch(`${API_URL}apply/business`, config)).then((response) => {
-            dispatch(receiveSignup())
+        return dispatch(doFetch('apply/business', config)).then((response) => {
+            dispatch(receiveSignup());
             resolve(response);
         }).catch((error) => {
-            dispatch(signupError(error))
+            dispatch(signupError(error));
             reject(error);
         })
     });

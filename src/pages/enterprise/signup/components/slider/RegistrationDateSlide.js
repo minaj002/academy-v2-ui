@@ -22,7 +22,7 @@ class RegistrationDateSlide extends Component {
                 <div className="mdc-typography--headline">When is your company registered?</div>
 
                 <div className="signup-field-group">
-                    <Field name="registrationDate" hintText="e.g 1989-01-01" maxDate={new Date()} component={DatePicker}
+                    <Field name="dateOfIncorporation" hintText="e.g 1989-01-01" maxDate={new Date()} component={DatePicker}
                            fullWidth format={null} tabIndex="-1" />
                 </div>
                 <div>

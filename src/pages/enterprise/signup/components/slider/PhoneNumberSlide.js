@@ -10,41 +10,37 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'redux-form-material-ui';
 import { asYouType, getPhoneCode, isValidNumber, parse } from 'libphonenumber-js';
 
-let countryFromInput;
+//let countryFromInput;
 
 const validate = (values) => {
-
     const errors = {};
-
-    if (!values.phoneNumber) {
-        errors.phoneNumber = 'Phone number is required';
+    if (!values.phone) {
+        errors.phone = 'Phone number is required';
     } else {
-        //let parsed = parse(values.phoneNumber, );
-        if (!isValidNumber(values.phoneNumber)) {
-            errors.phoneNumber = 'Phone number is not valid';
+        if (!isValidNumber(values.phone)) {
+            errors.phone = 'Phone number is not valid';
         }
     }
-
     return errors;
 };
 
 class PhoneNumberSlide extends Component {
 
-    constructor(props) {
-        super(props);
+    componentWillMount() {
+        if (this.props.selectedCountry) {
+            this.props.change("phone", "+" + getPhoneCode(this.props.selectedCountry) + " ");
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedCountry!=='' && this.props.selectedCountry!==nextProps.selectedCountry) {
-            countryFromInput = nextProps.selectedCountry;
-            let number = "+" + getPhoneCode(nextProps.selectedCountry) + " ";
-            this.props.change("phoneNumber", number);
+        if (this.props.selectedCountry!==nextProps.selectedCountry) {
+            this.props.change("phone", "+" + getPhoneCode(nextProps.selectedCountry) + " ");
         }
     }
 
     onInputChange = (e, value) => {
         let val = new asYouType().input(value);
-        this.props.change("phoneNumber", val);
+        this.props.change("phone", val);
         e.preventDefault();
     };
 
@@ -59,7 +55,7 @@ class PhoneNumberSlide extends Component {
                 <div className="mdc-typography--headline">What's your phone number?</div>
 
                 <div className="signup-field-group">
-                    <Field name="phoneNumber" ref="phoneNumber" withRef
+                    <Field name="phone" ref="phone" withRef
                            onChange = {this.onInputChange}
                            component={TextField} fullWidth tabIndex="-1" />
                 </div>

@@ -29,8 +29,9 @@ import PhoneNumberSlide from './PhoneNumberSlide';
 import TermsSlide from './TermsSlide';
 import PasswordSlide from './PasswordSlide';
 import PasswordRepeatSlide from './PasswordRepeatSlide';
+import LanguageSlide from './LanguageSlide';
 
-const slidesCount = 15;
+const slidesCount = 16;
 const sliderSettings = {
     accessibility: false,
     infinite: false,
@@ -67,11 +68,12 @@ const menuItems = [
         {id: 7, name: 'Last name', props: {disabled: true}, active: false},
         {id: 8, name: 'Email', props: {disabled: true}, active: false},
         {id: 9, name: 'Country', props: {disabled: true}, active: false},
-        {id: 10, name: 'Phone number', props: {disabled: true}, active: false},
-        {id: 11, name: 'Position', props: {disabled: true}, active: false},
-        {id: 12, name: 'Password', props: {disabled: true}, active: false},
-        {id: 13, name: 'Password repeat', props: {disabled: true}, active: false},
-        {id: 14, name: 'Terms', props: {disabled: true}, active: false}
+        {id: 10, name: 'Language', props: {disabled: true}, active: false},
+        {id: 11, name: 'Phone number', props: {disabled: true}, active: false},
+        {id: 12, name: 'Position', props: {disabled: true}, active: false},
+        {id: 13, name: 'Password', props: {disabled: true}, active: false},
+        {id: 14, name: 'Password repeat', props: {disabled: true}, active: false},
+        {id: 15, name: 'Terms', props: {disabled: true}, active: false}
     ]}
 ];
 
@@ -81,7 +83,7 @@ class SignupSlider extends Component {
         super(props);
         this.state = {
             current: 0,
-            data: {country: '', address: {}, password: ''}
+            data: {ownerCountry: '', address: {}, password: ''}
         }
     }
 
@@ -130,10 +132,11 @@ class SignupSlider extends Component {
             <LastNameSlide onSubmit={(data) => this.collectData(7, data)}/>,
             <EmailSlide onSubmit={(data) => this.collectData(8, data)} />,
             <CountrySlide handleSubmit={(data) => this.collectData(9, data)}/>,
-            <PhoneNumberSlide selectedCountry={this.state.data.country} onSubmit={(data) => this.collectData(10, data)} />,
-            <PositionSlide onSubmit={(data) => this.collectData(11, data)} />,
-            <PasswordSlide onSubmit={(data) => this.collectData(12, data)}/>,
-            <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.collectData(13, data)}/>,
+            <LanguageSlide onSubmit={(data) => this.collectData(10, data)} />,
+            <PhoneNumberSlide selectedCountry={this.state.data.ownerCountry} onSubmit={(data) => this.collectData(11, data)} />,
+            <PositionSlide onSubmit={(data) => this.collectData(12, data)} />,
+            <PasswordSlide onSubmit={(data) => this.collectData(13, data)}/>,
+            <PasswordRepeatSlide password={this.state.data.password} onSubmit={(data) => this.collectData(14, data)}/>,
             <TermsSlide data={this.state.data} history={this.props.history} />
         ];
 

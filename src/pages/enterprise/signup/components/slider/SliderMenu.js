@@ -79,11 +79,13 @@ class SliderMenu extends Component {
                         item.props.disabled = false;
                         prevIndex = i>0 ? i-1 : null;
                     } else if (sub.id>id) {
-                        //sub.props.disabled = true;
                         sub.active = false;
                     } else {
                         sub.active = false;
                     }
+
+                    sub.props.disabled = false;
+
 
                     return sub;
                 });
@@ -126,9 +128,10 @@ class SliderMenu extends Component {
                 });
             }
 
+            //item.props.disabled
             return <ListItem key={item.id} className="menu-item" primaryText={item.name} open={item.props.open}
                              autoGenerateNestedIndicator={false} onTouchTap={() => this.onTopLevelMenuTouchTap(item.id)}
-                             nestedItems={sub} disabled={item.props.disabled} leftIcon={item.props.checked ? <CheckIcon/> : null}
+                             nestedItems={sub} disabled={false} leftIcon={item.props.checked ? <CheckIcon/> : null}
             />
         });
 
