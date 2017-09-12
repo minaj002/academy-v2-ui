@@ -35,8 +35,6 @@
     "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "slick-carousel": "^1.6.0",
-    "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
