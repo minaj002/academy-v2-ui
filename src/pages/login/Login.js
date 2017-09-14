@@ -9,8 +9,7 @@ import { loginUser } from '../../actions/auth';
 import { setTitle } from '../../actions';
 import LockIcon from 'material-ui/svg-icons/action/lock';
 import Avatar from 'material-ui/Avatar';
-import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
+
 import Card, {CardActions} from 'material-ui/Card';
 
 import './login.css';
@@ -36,7 +35,7 @@ class Login extends Component {
 
     render() {
 
-        const { errorMessage } = this.props;
+        const { errorMessage, isFetching } = this.props;
 
         return (
             <div id="login-form">
@@ -49,21 +48,8 @@ class Login extends Component {
                     <p className="error-message">{errorMessage}</p>
                     }
 
-                    <LoginForm errorMessage={this.props.errorMessage} isFetching={this.props.isFetching} onSubmit={this.handleSubmit} />
-                    <CardActions>
-                        {!isFetching &&
-                        <RaisedButton
-                            type="submit"
-                            primary
-                            label="Login"
-                            fullWidth
-                        />
-                        }
-                        {isFetching &&
-                        <CircularProgress className="circular-progress-40"/>
-                        }
+                    <LoginForm  errorMessage={this.props.errorMessage} isFetching={this.props.isFetching} onSubmit={this.handleSubmit} />
 
-                    </CardActions>
                 </Card>
             </div>
         );

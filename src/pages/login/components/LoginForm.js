@@ -5,6 +5,8 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import InputTextField from '../../../components/InputTextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 
 const validate = values => {
@@ -21,7 +23,7 @@ const validate = values => {
 
 const LoginForm = props =>  {
 
-    const { handleSubmit, pristine } = props;
+    const { handleSubmit, pristine, isFetching } = props;
 
     return (
         <form onSubmit={handleSubmit}>
@@ -35,6 +37,21 @@ const LoginForm = props =>  {
                     <Field name="password" type="password" component={InputTextField} label="Password" />
                 </div>
             </div>
+
+            {!isFetching &&
+            <RaisedButton
+
+                type="submit"
+                primary
+                label="Login"
+                fullWidth
+            />
+            }
+            {isFetching &&
+            <CircularProgress className="circular-progress-40"/>
+            }
+
+
         </form>
     );
 

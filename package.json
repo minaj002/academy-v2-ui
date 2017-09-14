@@ -54,7 +54,7 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
     "webpack-archive-plugin": "^3.0.0",
-    "webpack-dev-server": "^2.4.5",
+    "webpack-dev-server": "^2.8.1",
     "webpack-uglify-parallel": "^0.1.3"
   },
   "scripts": {
