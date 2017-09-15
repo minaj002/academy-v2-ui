@@ -30,8 +30,6 @@ export default function doFetch(endpoint, configuration, authenticated=false) {
         fetch(baseUrl + endpoint, merge(config, configuration))
             .then((response) => {
 
-            console.log(response.headers.get("X-Authentication"));
-
             if (response.ok) {
                 return resolve(response)
             }
@@ -46,7 +44,3 @@ export default function doFetch(endpoint, configuration, authenticated=false) {
         })
     })
 }
-
-
-
-

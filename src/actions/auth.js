@@ -47,12 +47,8 @@ export function loginUser(creds) {
         dispatch(doFetch(`auth/login?${queryString}`, config))
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    console.log("RESPONSE", response);
-                    console.log(response.headers.get("X-Authorization"));
-                    response.headers.forEach((item)=>console.log(item));
-                    console.log(response.headers);
-                    // localStorage.setItem('token', response.headers.get("X-Authorization"));
-                    // dispatch(receiveLogin(response.headers.get("X-Authorization")));
+                    localStorage.setItem('token', response.headers.get("Authorization"));
+                    dispatch(receiveLogin(response.headers.get("Authorization")));
                     return response
                 } else {
                     throw new Error("Authentication failed")
@@ -60,12 +56,8 @@ export function loginUser(creds) {
             })
             .then(response => response.json())
             .then(response => {
-                console.log("res json", response);
-                // localStorage.setItem('token', response.token);
-                // dispatch(receiveLogin(response.token));
             })
             .catch((error) => {
-                console.log("err", res)
                 dispatch(loginError("Authentication failed"))
             });
     };
