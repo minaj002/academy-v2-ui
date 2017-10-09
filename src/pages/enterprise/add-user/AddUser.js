@@ -1,0 +1,75 @@
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {setTitle} from '../../../actions';
+import {change} from 'redux-form';
+
+
+import {Card, CardHeader} from 'material-ui/Card';
+
+import './add-user.css';
+import AddUserForm from "./components/AddUserForm";
+import {addMember} from "../../../actions/addMember";
+import {getSections} from "../../../actions/chooseRole";
+
+class AddUser extends Component {
+
+    constructor(props) {
+        super(props);
+        console.log("consructing Adduser: ", props);
+        this.state = {
+            open: false,
+        };
+    }
+
+    componentWillMount() {
+        this.props.dispatch(setTitle("Add User"));
+    }
+
+    componentDidMount() {
+        this.props.dispatch(change('dashboard', 'name', localStorage.getItem("name")));
+        this.props.dispatch(getSections())
+    }
+
+    handleSubmit = (user) => {
+        const newMember = { firstName: user.firstName.trim(), lastName: user.lastName.trim(), dateOfBirth: user.dateOfBirth.trim()
+            , email: user.email.trim(), phone: user.phone.trim(), street: user.street.trim(), city: user.city.trim()
+            , sections: [user.section]
+        };
+
+        console.log(user)
+        console.log(newMember)
+
+        this.props.dispatch(addMember(newMember));
+    };
+
+    render() {
+
+        const { errorMessage, isFetching } = this.props;
+
+        return (
+            <div id="login-form">
+                <Card className="card">
+                    {errorMessage &&
+                    <p className="error-message">{errorMessage}</p>
+                    }
+
+                    <AddUserForm errorMessage={this.props.errorMessage} isFetching={this.props.isFetching} onSubmit={this.handleSubmit} sections = {this.props.sections}/>
+                </Card>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => ({
+
+    isAuthenticated: state.auth.isAuthenticated,
+    isFetching: state.auth.isFetching,
+    errorMessage: state.auth.errorMessage,
+    username: state.auth.userName,
+    role: state.permissions.role,
+    roles: state.permissions.roles,
+    sections: state.sections,
+    statement: state.statement.statement
+});
+
+export default connect(mapStateToProps) (AddUser);

@@ -10,14 +10,22 @@ import signup from './signup';
 import globalMessage from './globalMessage';
 import businessSignup from './business/signup';
 import businessSignupRemaining from './business/signupRemaining';
+import permissions from "./permissions";
+import statement from "./statement";
+import sections from "./sections";
+import checkin from "./checkin";
 
 export default combineReducers({
     auth,
     title,
     globalMessage,
     signup,
+    permissions,
     businessSignup,
     businessSignupRemaining,
+    statement,
+    sections,
+    checkin,
     form: formReducer,
 
 });

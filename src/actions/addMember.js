@@ -29,26 +29,21 @@ function loginError(message) {
     }
 }
 
-export function loginUser(creds) {
+export function addMember(member) {
 
     return dispatch => {
 
-        dispatch(requestLogin(creds));
+        // dispatch(requestLogin(creds));
 
-        const queryString = Object.keys(creds).map((key) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(creds[key]);
-        }).join('&');
 
         let configPost = {
             method: 'POST',
-            headers: {'Content-Type':'application/json'}
+            body: JSON.stringify(member)
         };
 
-        dispatch(doFetch(`auth/login?${queryString}`, configPost))
+        dispatch(doFetch(`members/new`, configPost, true))
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    localStorage.setItem('token', response.headers.get("Authorization"));
-                    dispatch(receiveLogin(response.headers.get("Authorization")));
                     return response
                 } else {
                     throw new Error("Authentication failed")

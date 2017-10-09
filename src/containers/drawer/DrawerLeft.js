@@ -33,11 +33,11 @@ class DrawerLeft extends Component {
                 </div>
 
                 <MenuItem onTouchTap={this.props.onToggleDrawer}
-                          containerElement={<NavLink to="/clients" /> }
-                          primaryText="Clients" leftIcon={<PeopleIcon />} />
+                          containerElement={<NavLink to="/check-in" /> }
+                          primaryText="Check in" leftIcon={<PeopleIcon />} />
                 <MenuItem onTouchTap={this.props.onToggleDrawer}
-                          containerElement={<NavLink to="/applications" /> }
-                          primaryText="Applications" leftIcon={<InputIcon />} />
+                          containerElement={<NavLink to="/add-member" /> }
+                          primaryText="Add Member" leftIcon={<InputIcon />} />
             </Drawer>
         );
     }

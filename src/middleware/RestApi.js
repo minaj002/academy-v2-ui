@@ -21,7 +21,7 @@ export default function doFetch(endpoint, configuration, authenticated=false) {
 
         if (authenticated) {
             if (token) {
-                config.headers = merge(config.headers, {'Authorization': `Bearer ${token}`});
+                config.headers = merge(config.headers, {'Authorization': `${token}`});
             } else {
                 return reject("No token available");
             }

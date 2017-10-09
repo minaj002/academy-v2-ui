@@ -24,7 +24,7 @@ class Login extends Component {
     componentWillMount() {
         this.props.dispatch(setTitle("Login"));
         if (this.props.isAuthenticated) {
-            this.props.history.push('/');
+            this.props.history.push('/check-in');
         }
     }
 

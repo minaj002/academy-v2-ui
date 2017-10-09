@@ -5,11 +5,8 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import Login from '../pages/login/Login';
-import SignUp from '../pages/enterprise/signup/SignUp';
-import SignUpSuccess from '../pages/enterprise/signup/SignUpSuccess';
-import SignUpConfirm from '../pages/enterprise/signup/confirm/SignUpConfirm';
-import RemainingData from '../pages/enterprise/signup/remaining/RemainingData';
-import { requiresAuth } from './RequiresAuth';
+import Dashboard from '../pages/enterprise/dashboard/Dashboard';
+import AddUser from "../pages/enterprise/add-user/AddUser";
 
 const Routes = (props) => {
 
@@ -19,15 +16,15 @@ const Routes = (props) => {
         <div>
             {/*<Route exact path="/" component={requiresAuth(SignUp, isAuthenticated)} />*/}
 
-            <Route exact path="/" component={SignUp} />
-
+            <Route exact path="/" component={(props) => <Login {...props}
+                  isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
             {/* Signup */}
-            <Route exact path="/business/signup" component={SignUp} />
-            <Route path="/business/signup/success" component={SignUpSuccess} />
-            <Route path="/business/signup/confirm/:token" component={SignUpConfirm} />
-            <Route exact path="/business/:id/company-info" component={RemainingData} />
 
             <Route path="/login" component={(props) => <Login {...props}
+                  isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
+            <Route path="/check-in" component={(props) => <Dashboard {...props}
+                  isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
+            <Route path="/add-member" component={(props) => <AddUser {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
 
         </div>

@@ -2,20 +2,17 @@
  * Created by artis on 06/04/2017.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AppBar from 'material-ui/AppBar';
 import DrawerLeft from '../drawer/DrawerLeft';
 import RightMenu from './RightMenu';
-import IconButton from 'material-ui/IconButton';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { logoutUser } from '../../actions';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import {logoutUser} from '../../actions';
 
 const appBarSettings = {
-    showMenuIconButton: false,
+    showMenuIconButton: true,
     iconElementLeft: null,
-    onLeftIconButtonTouchTap: null
 };
 
 class AppBarTop extends Component {
@@ -50,7 +47,9 @@ class AppBarTop extends Component {
             <div>
                 <AppBar
                     title={title}
-                    iconElementRight={isAuthenticated ? <RightMenu onLogoutClick={() => this.onLogoutClick()}  /> : null}
+                    onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
+                    iconElementRight={isAuthenticated ? <RightMenu onLogoutClick={() => this.onLogoutClick()}
+                    /> : null}
                     {...appBarSettings}
                 />
 

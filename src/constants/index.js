@@ -19,11 +19,19 @@ export const LOGOUT = "LOGOUT";
 export const GLOBAL_SNACKBAR_OPEN = "GLOBAL_SNACKBAR_OPEN";
 export const GLOBAL_SNACKBAR_CLOSE = "GLOBAL_SNACKBAR_CLOSE";
 
-/*export default createConstants(
-    'LOGIN_REQUEST',
-    'LOGIN_SUCCESS',
-    'LOGIN_FAILURE',
-    'LOGOUT',
-    'FETCH_DATA_REQUEST',
-    'RECEIVE_DATA'
-);*/
+export const SET_ROLES = "SET_ROLES";
+export const CHANGE_ROLE = "CHANGE_ROLE";
+export const SET_NAME = "SET_NAME";
+export const SET_ACCOUNT_INFO = "SET_ACCOUNT_INFO";
+
+export const SET_STATEMENT = "SET_STATEMENT";
+
+export const SET_SECTIONS = "SET_SECTIONS";
+
+export const CHOOSE_FOR_CHECKIN = "CHOOSE_FOR_CHECKIN";
+export const CHEKIN_CHOSEN = "CHEKIN_CHOSEN";
+export const SET_UNCHECKED_MEMBERS = "SET_UNCHECKED_MEMBERS";
+export const CHEKIN_CONFIRM = "CHEKIN_CONFIRM";
+export const CLOSE_CONFIRM = "CLOSE_CONFIRM";
+
+
