@@ -61,11 +61,6 @@ class Dashboard extends Component {
         this.props.dispatch(checkConfirm());
     }
 
-    sendStudents = () => {
-        this.props.dispatch(sendStudents());
-        this.props.dispatch(getMembers());
-    }
-
     render() {
 
         const { errorMessage, isFetching } = this.props;
@@ -78,7 +73,6 @@ class Dashboard extends Component {
                     }
                     <DashboardForm isFetching={this.props.isFetching} statement = {this.props.statement} checkIn = {this.checkIn}
                                    choose = {this.choose} checkedIn = {this.props.checkedIn} clickToCheckin={this.clickToCheckin}
-                                    sendStudents={this.sendStudents}
                     />
 
                     <DashboardConfirm dialog = {this.props.checkedIn} handleClose = {this.handleClose}

@@ -58,7 +58,7 @@ const styles = {
 
 const DashboardForm = props => {
 
-    const {isFetching, statement, checkIn, choose, checkedIn, clickToCheckin, sendStudents} = props;
+    const {isFetching, statement, checkIn, choose, checkedIn, clickToCheckin} = props;
 
 
     return (
