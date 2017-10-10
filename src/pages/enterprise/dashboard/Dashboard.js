@@ -63,12 +63,12 @@ class Dashboard extends Component {
 
     sendStudents = () => {
         this.props.dispatch(sendStudents());
+        this.props.dispatch(getMembers());
     }
 
     render() {
 
         const { errorMessage, isFetching } = this.props;
-
 
         return (
             <div id="dashboard-form">

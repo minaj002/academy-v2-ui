@@ -4,7 +4,7 @@
 
 
 import {
-    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM,
+    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM, MEMBERS_SENT,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 import doFetch from '../middleware/RestApi';
@@ -44,6 +44,12 @@ export function setMembers(members) {
     }
 }
 
+function membersSent() {
+    return {
+        type: MEMBERS_SENT
+    }
+}
+
 export function sendStudents() {
     return dispatch => {
 
@@ -56,12 +62,11 @@ export function sendStudents() {
             body: JSON.stringify(classes)
         };
 
-        console.log(JSON.stringify(classes));
-
         dispatch(doFetch(`classes/new`, configPost, true))
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     localStorage.removeItem('checked');
+                    dispatch(membersSent());
                     return response
                 } else {
                     throw new Error("Authentication failed")

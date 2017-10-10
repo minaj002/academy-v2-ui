@@ -2,11 +2,12 @@
  * Created by artis on 25/04/2017.
  */
 
-import { createReducer } from '../utils';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../constants';
-import jwtDecode from 'jwt-decode';
+import {createReducer} from '../utils';
 import {
-    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM,
+    CHEKIN_CHOSEN,
+    CHEKIN_CONFIRM,
+    CHOOSE_FOR_CHECKIN,
+    CLOSE_CONFIRM, MEMBERS_SENT,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 
@@ -35,9 +36,12 @@ export default createReducer(initialState, {
     [CHEKIN_CHOSEN]:(state, action) => {
         console.log(state, action);
 
-        const people = state.checked.slice(0);
-        people.push(state.chosen);
-
+        let people = state.checked.slice(0);
+        if(people.find(m => {
+                return state.chosen.id === m.id
+            })) {} else {
+            people.push(state.chosen);
+        }
         const unchecked_people = state.unchecked.filter(
             el => {
                 return el.id !== state.chosen.id })
@@ -76,18 +80,36 @@ export default createReducer(initialState, {
     },
     [SET_UNCHECKED_MEMBERS]:(state, action) => {
         console.log(state, action);
+        let unchecked_people = action.unchecked;
+        let checked = localStorage.getItem("checked") === null ? [] : JSON.parse(localStorage.getItem("checked"));
+        console.log(checked);
+        if(checked.length > 0 ) {
 
-        let checked = JSON.parse(localStorage.getItem("checked"));
-        const unchecked_people = action.unchecked.filter(
-            el =>{return checked.find( mem => {
-
-                console.log(el.id,  mem.id, el.id !== mem.id)
-
-                return el.id !== mem.id })}
-                )
+            checked.forEach(e => {
+                unchecked_people = unchecked_people.filter(el => {
+                    return e.id !== el.id;
+                })
+            })
+        } else  {
+            unchecked_people = action.unchecked
+        }
 
         return Object.assign({}, state, {
             'checked': checked,
+            'chosen': state.chosen,
+            'searchText': '',
+            'unchecked':unchecked_people,
+            'open': false
+        });
+    },
+    [MEMBERS_SENT]:(state, action) => {
+        console.log(state, action);
+        let unchecked_people;
+
+            unchecked_people = state.unchecked.concat(state.checked);
+
+        return Object.assign({}, state, {
+            'checked': [],
             'chosen': state.chosen,
             'searchText': '',
             'unchecked':unchecked_people,

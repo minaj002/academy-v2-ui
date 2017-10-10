@@ -1,8 +1,5 @@
-
-import { CHANGE_ROLE, LOGIN_SUCCESS, SET_NAME } from '../constants';
 import doFetch from '../middleware/RestApi';
 import {SET_STATEMENT} from "../constants/index";
-import statement from "../reducers/statement";
 import {setMembers} from "./checkin";
 
 function setStatement(statement) {
@@ -11,16 +8,6 @@ function setStatement(statement) {
         statement: statement
     }
 }
-
-function receiveLogin(token) {
-    return {
-        type: LOGIN_SUCCESS,
-        payload: {
-            token: token
-        }
-    }
-}
-
 
 export function getMembers() {
     return dispatch => {

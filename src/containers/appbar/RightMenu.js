@@ -11,6 +11,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {connect} from 'react-redux';
 import {sendStudents} from "../../actions/checkin";
+import {getMembers} from "../../actions/getStatement";
 
 class RightMenu extends Component {
 
@@ -20,6 +21,7 @@ class RightMenu extends Component {
 
     sendStudentsOnTap = () => {
         this.props.dispatch(sendStudents());
+        this.props.dispatch(getMembers());
     }
 
     render() {

@@ -19,7 +19,7 @@ const WebpackUglifyJsPlugin = new webpack.optimize.UglifyJsPlugin();
 const WebpackAggressiveMergingPlugin = new webpack.optimize.AggressiveMergingPlugin();
 const WebpackDefinePlugin = new webpack.DefinePlugin({
     NODE_ENV: JSON.stringify("production"),
-    API_URL: JSON.stringify("https://bbk.servers.weststeincard.com/api/"),
+    API_URL: JSON.stringify("http://academyv2.us-east-2.elasticbeanstalk.com/api/"),
     VERSION: JSON.stringify(packageJson.version),
 });
 
