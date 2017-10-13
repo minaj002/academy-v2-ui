@@ -22,6 +22,9 @@ class AddUser extends Component {
     }
 
     componentWillMount() {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
         this.props.dispatch(setTitle("Add User"));
     }
 
@@ -66,10 +69,7 @@ const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
     errorMessage: state.auth.errorMessage,
     username: state.auth.userName,
-    role: state.permissions.role,
-    roles: state.permissions.roles,
     sections: state.sections,
-    statement: state.statement.statement
 });
 
 export default connect(mapStateToProps) (AddUser);

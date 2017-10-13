@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import PaymentIcon from 'material-ui/svg-icons/action/payment';
 import PeopleIcon from 'material-ui/svg-icons/social/people';
 import InputIcon from 'material-ui/svg-icons/action/input';
+import BusinessIcon from 'material-ui/svg-icons/communication/business';
 import { NavLink } from 'react-router-dom';
 
 const style = {
@@ -38,6 +39,15 @@ class DrawerLeft extends Component {
                 <MenuItem onTouchTap={this.props.onToggleDrawer}
                           containerElement={<NavLink to="/add-member" /> }
                           primaryText="Add Member" leftIcon={<InputIcon />} />
+                <MenuItem onTouchTap={this.props.onToggleDrawer}
+                          containerElement={<NavLink to="/classes" /> }
+                          primaryText="See classes" leftIcon={<BusinessIcon />} />
+                <MenuItem onTouchTap={this.props.onToggleDrawer}
+                          containerElement={<NavLink to="/payments" /> }
+                          primaryText="See payments" leftIcon={<PaymentIcon />} />
+                <MenuItem onTouchTap={this.props.onToggleDrawer}
+                          containerElement={<NavLink to="/add-payment" /> }
+                          primaryText="Add payment" leftIcon={<PaymentIcon />} />
             </Drawer>
         );
     }

@@ -1,7 +1,3 @@
-/**
- * Created by artis on 06/04/2017.
- */
-
 import React, {Component} from 'react';
 import AppBar from 'material-ui/AppBar';
 import DrawerLeft from '../drawer/DrawerLeft';

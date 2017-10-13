@@ -9,10 +9,13 @@ import {
     CardHeader,
     CardText,
     CardTitle,
-    FlatButton, FloatingActionButton,
+    FlatButton,
+    FloatingActionButton,
     GridList,
     GridTile,
-    IconButton, IconMenu, MenuItem,
+    IconButton,
+    IconMenu,
+    MenuItem, RaisedButton,
     Table,
     TableBody,
     TableHeader,
@@ -22,9 +25,6 @@ import {
     TextField
 } from "material-ui";
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import {blueGrey50} from 'material-ui/styles/colors';
 
 
 const validate = values => {
@@ -49,90 +49,65 @@ const styles = {
         textAlign: 'center'
     },
     gridTileSmall: {
+        width: '70%',
+        height: 500,
+        overflowY: 'auto',
+        padding: 10,
+        textAlign: 'center'
+    },
+    autoComplete: {
         width: 150,
         height: 80,
         overflowY: 'auto',
     },
-    title: {
-        width: '90%',
-        height: 80,
-        padding: 10,
-        overflowY: 'auto',
-    },
 };
 
-const DashboardForm = props => {
+const AddPaymentForm = props => {
 
-    const {isFetching, checkIn, choose, checkedIn, clickToCheckin, setClassTitle} = props;
+    const {isFetching, payments, clickToSeePayments, openPaymentDialog} = props;
 
 
     return (
         <form>
             <div className="form" style={styles.root}>
                 <GridList
-                    cols={2}
+                    cols={5}
                     cellHeight={'auto'}
                     padding={3}
                     style={styles.gridList}
                 >
-                    <GridTile
-                        key='topic'
-                        actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
-                        actionPosition="left"
-                        titlePosition="top"
-                        titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                        cols={2}
-                        rows={1}
-                        style={styles.title}
-                    >
-                        <div>
-                            <TextField
-                            hintText="Today's Topic"
-                            onChange={setClassTitle}
-                            fullWidth={true}
-                            value={checkedIn.title}
-                        />
-                        </div>
-                    </GridTile>
+
                     <GridTile
                         key='unchecked-head'
                         actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
                         actionPosition="left"
                         titlePosition="top"
                         titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                        cols={1}
+                        cols={2}
                         rows={1}
                         style={styles.gridTile}
                     >
                         <div className="field">
                             <Card>
-                                {checkedIn.unchecked &&
+                                {payments.members &&
                                 <AutoComplete
                                     floatingLabelText="type name"
                                     filter={AutoComplete.caseInsensitiveFilter}
                                     dataSource={
-                                        checkedIn.unchecked.map(item => {
+                                        payments.members.map(item => {
                                             return Object.assign({fullName: item.firstName + " " + item.lastName}, item)
                                         })}
                                     dataSourceConfig={{text: 'fullName', value: 'id'}}
-                                    style={styles.gridTileSmall}
-                                    onNewRequest={choose}
+                                    style={styles.autoComplete}
+                                    onNewRequest={clickToSeePayments}
                                     name="autoComplete"
-                                    searchText={checkedIn.searchText}
                                 />}
 
-
-                                {checkedIn.unchecked &&
-                                <FloatingActionButton style={{marginRight: 0}} mini={true} onClick={checkIn}
-                                                      name="checkIn">
-                                    <ContentAdd/>
-                                </FloatingActionButton>
-                                }
-                                {checkedIn.unchecked && <Table>
+                                {payments.members && <Table>
                                     <TableBody displayRowCheckbox={false} stripedRows={true}>
-                                        {checkedIn.unchecked.map((row, index) => (
+                                        {payments.members.map((row, index) => (
                                             <TableRow key={index} value={row} onMouseDown={() => {
-                                                clickToCheckin(row)
+                                                clickToSeePayments(row)
                                             }}>
                                                 <TableRowColumn>{row.firstName + ' ' + row.lastName}</TableRowColumn>
                                             </TableRow>
@@ -149,25 +124,38 @@ const DashboardForm = props => {
                         actionPosition="left"
                         titlePosition="top"
                         titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                        cols={1}
+                        cols={3}
                         rows={2}
                         style={styles.gridTile}
                     >
                         <div className="field">
                             <Card>
-                                {checkedIn.checked &&
+                                {payments.selected &&
+                                <CardHeader
+                                    title={payments.selected.firstName + ' ' + payments.selected.lastName}
+                                    actAsExpander={true}
+                                    showExpandableButton={false}
+                                />
+                                }
+                                {payments.selected &&
+                                <div>
+                                    <RaisedButton label="Pay" onClick={openPaymentDialog}/>
+                                </div>
+                                }
+                                {payments.paymentsForMember &&
 
                                 <Table>
-                                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                                    <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                                         <TableRow>
-                                            <TableHeaderColumn>Checked In {checkedIn.checked.length}
-                                            </TableHeaderColumn>
+                                            <TableHeaderColumn>Payment Date, Paid Until, Amount</TableHeaderColumn>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody displayRowCheckbox={false} stripedRows={true}>
-                                        {checkedIn.checked.map((row, index) => (
+                                        {payments.paymentsForMember.map((row, index) => (
                                             <TableRow key={index}>
-                                                <TableRowColumn>{row.firstName + ' ' + row.lastName}</TableRowColumn>
+                                                <TableRowColumn>{new Intl.DateTimeFormat().format(new Date(row.paymentDate))
+                                                + ' ' + new Intl.DateTimeFormat().format(new Date(row.paidUntil))
+                                                + ' ' + row.amount + ' EUR'}</TableRowColumn>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -190,6 +178,6 @@ const DashboardForm = props => {
 };
 
 export default reduxForm({
-    form: 'dashboard',
+    form: 'addpayment',
     validate,
-})(DashboardForm)
+})(AddPaymentForm)

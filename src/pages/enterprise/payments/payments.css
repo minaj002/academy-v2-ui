@@ -1,0 +1,29 @@
+#login-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-form .card {
+    min-width: 300px;
+}
+
+#login-form .card .avatar {
+    margin: 1em 1em 0.5em 1em;
+    text-align: center;
+}
+
+#login-form .form {
+    padding: 0 1em 1em 1em;
+}
+
+#login-form .field {
+    display: flex;
+}
+
+#login-form p.error-message {
+    color:red;
+    margin-bottom:0;
+}

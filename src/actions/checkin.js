@@ -4,7 +4,7 @@
 
 
 import {
-    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM, MEMBERS_SENT,
+    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM, MEMBERS_SENT, SET_CLASS_TITLE,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 import doFetch from '../middleware/RestApi';
@@ -44,6 +44,13 @@ export function setMembers(members) {
     }
 }
 
+export function setClassTitle(title) {
+    return {
+        type: SET_CLASS_TITLE,
+        title: title
+    }
+}
+
 function membersSent() {
     return {
         type: MEMBERS_SENT
@@ -54,8 +61,9 @@ export function sendStudents() {
     return dispatch => {
 
         let members = localStorage.getItem('checked');
+        let classTitle = localStorage.getItem('classTitle');
 
-        let classes = {'date': null, 'id': null, 'members' : JSON.parse(members)};
+        let classes = {'date': null, 'id': null, 'members' : JSON.parse(members), 'topic' : classTitle };
 
         let configPost = {
             method: 'POST',
@@ -66,6 +74,7 @@ export function sendStudents() {
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     localStorage.removeItem('checked');
+                    localStorage.removeItem('classTitle');
                     dispatch(membersSent());
                     return response
                 } else {

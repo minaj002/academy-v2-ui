@@ -8,16 +8,12 @@ import {change} from 'redux-form';
 import {Card} from 'material-ui/Card';
 
 import './dashboard.css';
-import {getMembers, getStatement} from "../../../actions/getStatement";
-import {checkConfirm, checkInChosen, chooseForCheckIn, closeConfirm, sendStudents} from "../../../actions/checkin";
+import {getMembers} from "../../../actions/getStatement";
+import {checkConfirm, checkInChosen, chooseForCheckIn, closeConfirm, setClassTitle} from "../../../actions/checkin";
 import {Dialog, FlatButton, RaisedButton} from "material-ui";
 import DashboardConfirm from "./components/DashboardConfirm";
 
 class Dashboard extends Component {
-
-    autoComplete = {
-        searchText: ""
-    };
 
     handleClose = () => {
         this.props.dispatch(closeConfirm());
@@ -33,6 +29,9 @@ class Dashboard extends Component {
     }
 
     componentWillMount() {
+        if (!this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
         this.props.dispatch(setTitle("Dashboard"));
     }
 
@@ -61,6 +60,10 @@ class Dashboard extends Component {
         this.props.dispatch(checkConfirm());
     }
 
+    setThisClassTitle = (event, title) => {
+        this.props.dispatch(setClassTitle(title))
+    }
+
     render() {
 
         const { errorMessage, isFetching } = this.props;
@@ -71,8 +74,9 @@ class Dashboard extends Component {
                     {errorMessage &&
                     <p className="error-message">{errorMessage}</p>
                     }
-                    <DashboardForm isFetching={this.props.isFetching} statement = {this.props.statement} checkIn = {this.checkIn}
+                    <DashboardForm isFetching={this.props.isFetching} checkIn = {this.checkIn}
                                    choose = {this.choose} checkedIn = {this.props.checkedIn} clickToCheckin={this.clickToCheckin}
+                                   setClassTitle = {this.setThisClassTitle}
                     />
 
                     <DashboardConfirm dialog = {this.props.checkedIn} handleClose = {this.handleClose}
@@ -90,7 +94,6 @@ const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
     errorMessage: state.auth.errorMessage,
     username: state.auth.userName,
-    statement: state.statement.statement,
     checkedIn: state.checkin,
 
 });

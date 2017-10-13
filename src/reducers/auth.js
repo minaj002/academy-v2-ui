@@ -1,9 +1,5 @@
-/**
- * Created by artis on 25/04/2017.
- */
-
-import { createReducer } from '../utils';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../constants';
+import {createReducer} from '../utils';
+import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT} from '../constants';
 import jwtDecode from 'jwt-decode';
 
 

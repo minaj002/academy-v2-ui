@@ -1,7 +1,3 @@
-/**
- * Created by artis on 19/04/2017.
- */
-
 import React, { Component } from 'react';
 
 export function requiresAuth(WrappedComponent, isAuthenticated) {

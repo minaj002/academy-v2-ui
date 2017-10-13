@@ -1,13 +1,11 @@
-/**
- * Created by artis on 25/04/2017.
- */
-
 import {createReducer} from '../utils';
 import {
     CHEKIN_CHOSEN,
     CHEKIN_CONFIRM,
     CHOOSE_FOR_CHECKIN,
-    CLOSE_CONFIRM, MEMBERS_SENT,
+    CLOSE_CONFIRM,
+    MEMBERS_SENT,
+    SET_CLASS_TITLE,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 
@@ -17,7 +15,8 @@ const initialState = {
     checked: [],
     unchecked: [],
     searchText: '',
-    open: false
+    open: false,
+    title:''
 
 };
 
@@ -29,8 +28,8 @@ export default createReducer(initialState, {
             'checked': state.checked,
             'searchText': action.chosen.firstName + ' ' + action.chosen.lastName,
             'unchecked':  state.unchecked,
-            'open': false
-
+            'open': false,
+            'title': state.title
         });
     },
     [CHEKIN_CHOSEN]:(state, action) => {
@@ -53,7 +52,8 @@ export default createReducer(initialState, {
             'chosen': null,
             'searchText': '',
             'unchecked':unchecked_people,
-            'open': false
+            'open': false,
+            'title': state.title
         });
     },
     [CHEKIN_CONFIRM]:(state, action) => {
@@ -64,7 +64,8 @@ export default createReducer(initialState, {
             'chosen': state.chosen,
             'searchText': '',
             'unchecked':state.unchecked,
-            'open': true
+            'open': true,
+            'title': state.title
         });
     },
     [CLOSE_CONFIRM]:(state, action) => {
@@ -75,7 +76,8 @@ export default createReducer(initialState, {
             'chosen': null,
             'searchText': '',
             'unchecked':state.unchecked,
-            'open': false
+            'open': false,
+            'title': state.title
         });
     },
     [SET_UNCHECKED_MEMBERS]:(state, action) => {
@@ -99,21 +101,32 @@ export default createReducer(initialState, {
             'chosen': state.chosen,
             'searchText': '',
             'unchecked':unchecked_people,
-            'open': false
+            'open': false,
+            'title': state.title
         });
     },
     [MEMBERS_SENT]:(state, action) => {
         console.log(state, action);
-        let unchecked_people;
-
-            unchecked_people = state.unchecked.concat(state.checked);
-
+        let unchecked_people = state.unchecked.concat(state.checked);
         return Object.assign({}, state, {
             'checked': [],
             'chosen': state.chosen,
             'searchText': '',
             'unchecked':unchecked_people,
-            'open': false
+            'open': false,
+            'title': ''
+        });
+    },
+    [SET_CLASS_TITLE]:(state, action) => {
+        console.log(state, action);
+        localStorage.setItem('classTitle', action.title);
+        return Object.assign({}, state, {
+            'checked': state.checked,
+            'chosen': state.chosen,
+            'searchText': state.searchText,
+            'unchecked':state.unchecked,
+            'open': false,
+            'title': action.title
         });
     },
 });
