@@ -1,7 +1,3 @@
-/**
- * Created by artis on 07/04/2017.
- */
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -10,8 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {connect} from 'react-redux';
-import {sendStudents} from "../../actions/checkin";
-import {getMembers} from "../../actions/getStatement";
+import {getMembers, sendStudents} from "../../actions/checkin";
 
 class RightMenu extends Component {
 

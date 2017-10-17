@@ -1,18 +1,8 @@
-/**
- * Created by artis on 25/04/2017.
- */
-
-//import { createConstants } from '../utils';
-
 export const SET_TITLE = "SET_TITLE";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-// signup
-export const SIGNUP_VERIFY_EMAIL_REQUEST = "SIGNUP_VERIFY_EMAIL_REQUEST";
-export const SIGNUP_VERIFY_EMAIL_SUCCESS = "SIGNUP_VERIFY_EMAIL_SUCCESS";
-export const SIGNUP_VERIFY_EMAIL_FAILURE = "SIGNUP_VERIFY_EMAIL_FAILURE";
 
 export const LOGOUT = "LOGOUT";
 
@@ -36,6 +26,9 @@ export const SET_AMOUNT = "SET_AMOUNT";
 
 export const SET_CLASSES = "SET_CLASSES";
 export const SET_CLASS = "SET_CLASS";
+export const QUERING_CLASSES = "QUERING_CLASSES";
+export const SET_CLASS_MEMBER = "SET_CLASS_MEMBER";
+export const SET_CLASSES_FOR_MEMBER = "SET_CLASSES_FOR_MEMBER";
 
 
 export const CHOOSE_FOR_CHECKIN = "CHOOSE_FOR_CHECKIN";
@@ -45,5 +38,6 @@ export const CHEKIN_CONFIRM = "CHEKIN_CONFIRM";
 export const CLOSE_CONFIRM = "CLOSE_CONFIRM";
 export const MEMBERS_SENT = "MEMBERS_SENT";
 export const SET_CLASS_TITLE = "SET_CLASS_TITLE";
+export const QUERING_MEMBERS = "QUERING_MEMBERS";
 
 

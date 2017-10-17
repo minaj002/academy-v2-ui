@@ -43,6 +43,9 @@ class DrawerLeft extends Component {
                           containerElement={<NavLink to="/classes" /> }
                           primaryText="See classes" leftIcon={<BusinessIcon />} />
                 <MenuItem onTouchTap={this.props.onToggleDrawer}
+                          containerElement={<NavLink to="/classes-for-member" /> }
+                          primaryText="See classes for Member" leftIcon={<BusinessIcon />} />
+                <MenuItem onTouchTap={this.props.onToggleDrawer}
                           containerElement={<NavLink to="/payments" /> }
                           primaryText="See payments" leftIcon={<PaymentIcon />} />
                 <MenuItem onTouchTap={this.props.onToggleDrawer}

@@ -1,7 +1,3 @@
-/**
- * Created by artis on 25/04/2017.
- */
-
 import {LOGOUT, GLOBAL_SNACKBAR_OPEN, GLOBAL_SNACKBAR_CLOSE, SET_TITLE} from '../constants';
 
 

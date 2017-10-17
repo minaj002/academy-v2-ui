@@ -4,7 +4,7 @@ import {
     CHEKIN_CONFIRM,
     CHOOSE_FOR_CHECKIN,
     CLOSE_CONFIRM,
-    MEMBERS_SENT,
+    MEMBERS_SENT, QUERING_MEMBERS,
     SET_CLASS_TITLE,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
@@ -16,7 +16,8 @@ const initialState = {
     unchecked: [],
     searchText: '',
     open: false,
-    title:''
+    title:'',
+    quering: false
 
 };
 
@@ -29,7 +30,8 @@ export default createReducer(initialState, {
             'searchText': action.chosen.firstName + ' ' + action.chosen.lastName,
             'unchecked':  state.unchecked,
             'open': false,
-            'title': state.title
+            'title': state.title,
+            'quering': false
         });
     },
     [CHEKIN_CHOSEN]:(state, action) => {
@@ -53,7 +55,8 @@ export default createReducer(initialState, {
             'searchText': '',
             'unchecked':unchecked_people,
             'open': false,
-            'title': state.title
+            'title': state.title,
+            'quering': false
         });
     },
     [CHEKIN_CONFIRM]:(state, action) => {
@@ -65,7 +68,8 @@ export default createReducer(initialState, {
             'searchText': '',
             'unchecked':state.unchecked,
             'open': true,
-            'title': state.title
+            'title': state.title,
+            'quering': false
         });
     },
     [CLOSE_CONFIRM]:(state, action) => {
@@ -77,7 +81,21 @@ export default createReducer(initialState, {
             'searchText': '',
             'unchecked':state.unchecked,
             'open': false,
-            'title': state.title
+            'title': state.title,
+            'quering': false
+        });
+    },
+    [QUERING_MEMBERS]:(state, action) => {
+        console.log(state, action);
+
+        return Object.assign({}, state, {
+            'checked': state.checked,
+            'chosen': null,
+            'searchText': '',
+            'unchecked':state.unchecked,
+            'open': false,
+            'title': state.title,
+            'quering': true
         });
     },
     [SET_UNCHECKED_MEMBERS]:(state, action) => {
@@ -102,7 +120,8 @@ export default createReducer(initialState, {
             'searchText': '',
             'unchecked':unchecked_people,
             'open': false,
-            'title': state.title
+            'title': state.title,
+            'quering': false
         });
     },
     [MEMBERS_SENT]:(state, action) => {
@@ -114,7 +133,8 @@ export default createReducer(initialState, {
             'searchText': '',
             'unchecked':unchecked_people,
             'open': false,
-            'title': ''
+            'title': '',
+            'quering': false
         });
     },
     [SET_CLASS_TITLE]:(state, action) => {
@@ -126,7 +146,8 @@ export default createReducer(initialState, {
             'searchText': state.searchText,
             'unchecked':state.unchecked,
             'open': false,
-            'title': action.title
+            'title': action.title,
+            'quering': false
         });
     },
 });

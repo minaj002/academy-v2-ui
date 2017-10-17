@@ -8,14 +8,14 @@ import {
     CardActions,
     CardHeader,
     CardText,
-    CardTitle, DatePicker,
+    CardTitle,
     FlatButton,
     FloatingActionButton,
     GridList,
     GridTile,
     IconButton,
     IconMenu,
-    MenuItem,
+    MenuItem, RaisedButton,
     Table,
     TableBody,
     TableHeader,
@@ -49,15 +49,22 @@ const styles = {
         textAlign: 'center'
     },
     gridTileSmall: {
+        width: '70%',
+        height: 500,
+        overflowY: 'auto',
+        padding: 10,
+        textAlign: 'center'
+    },
+    autoComplete: {
         width: 150,
         height: 80,
         overflowY: 'auto',
     },
 };
 
-const ClassesForm = props => {
+const ClassesForMemberForm = props => {
 
-    const {isFetching, classes, showAttended, chooseMonth} = props;
+    const {isFetching, classes, payments,clickToSeeClasses} = props;
 
 
     return (
@@ -71,36 +78,7 @@ const ClassesForm = props => {
                 >
 
                     <GridTile
-                        key='classes'
-                        actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
-                        actionPosition="left"
-                        titlePosition="top"
-                        titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-                        cols={3}
-                        rows={1}
-                        style={styles.gridTile}
-                    >
-                        <div className="field">
-                            <DatePicker hintText="Choose month" onChange = {chooseMonth} defaultDate={new Date()} formatDate={new Intl.DateTimeFormat().format}/>
-                            {classes.quering &&
-                            <CircularProgress className="circular-progress-40"/>
-                            }
-                            <Card>
-                                {classes && classes.classes && <Table>
-                                    <TableBody displayRowCheckbox={false} stripedRows={true}>
-                                        {classes.classes.map((row, index) => (
-                                            <TableRow key={index} value ={row} onMouseDown={()=>{showAttended(row)}}>
-                                                <TableRowColumn>{new Intl.DateTimeFormat().format(new Date(row.date)) + " : "+ row.members.length + ' ' + (row.topic ? row.topic : '')}</TableRowColumn>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                                }
-                            </Card>
-                        </div>
-                    </GridTile>
-                    <GridTile
-                        key='class-info'
+                        key='unchecked-head'
                         actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
                         actionPosition="left"
                         titlePosition="top"
@@ -111,18 +89,66 @@ const ClassesForm = props => {
                     >
                         <div className="field">
                             <Card>
-                                {classes && classes.members && <Table>
-                                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                                {payments.members &&
+                                <AutoComplete
+                                    floatingLabelText="type name"
+                                    filter={AutoComplete.caseInsensitiveFilter}
+                                    dataSource={
+                                        payments.members.map(item => {
+                                            return Object.assign({fullName: item.firstName + " " + item.lastName}, item)
+                                        })}
+                                    dataSourceConfig={{text: 'fullName', value: 'id'}}
+                                    style={styles.autoComplete}
+                                    onNewRequest={clickToSeeClasses}
+                                    name="autoComplete"
+                                />}
+
+                                {payments.members && <Table>
+                                    <TableBody displayRowCheckbox={false} stripedRows={true}>
+                                        {payments.members.map((row, index) => (
+                                            <TableRow key={index} value={row} onMouseDown={() => {
+                                                clickToSeeClasses(row)
+                                            }}>
+                                                <TableRowColumn>{row.firstName + ' ' + row.lastName}</TableRowColumn>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                                }
+                            </Card>
+                        </div>
+                    </GridTile>
+                    <GridTile
+                        key='checked-head'
+                        actionIcon={<IconButton><StarBorder color="white"/></IconButton>}
+                        actionPosition="left"
+                        titlePosition="top"
+                        titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                        cols={3}
+                        rows={2}
+                        style={styles.gridTile}
+                    >
+                        <div className="field">
+                            <Card>
+                                {classes.selected &&
+                                <CardHeader
+                                    title={classes.member.firstName + ' ' + classes.member.lastName}
+                                    actAsExpander={true}
+                                    showExpandableButton={false}
+                                />
+                                }
+                                {classes.memberClasses &&
+
+                                <Table>
+                                    <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                                         <TableRow>
-                                            <TableHeaderColumn>
-                                                {classes.topic}
-                                            </TableHeaderColumn>
+                                            <TableHeaderColumn>Class Date, Topic</TableHeaderColumn>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody displayRowCheckbox={false} stripedRows={true}>
-                                        {classes.members.map((row, index) => (
-                                            <TableRow key={index} value ={row} >
-                                                <TableRowColumn>{row.firstName +" "+ row.lastName}</TableRowColumn>
+                                        {classes.memberClasses.map((row, index) => (
+                                            <TableRow key={index}>
+                                                <TableRowColumn>{new Intl.DateTimeFormat().format(new Date(row.date)) +' ' + (row.topic ? row.topic : '')}</TableRowColumn>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -145,6 +171,6 @@ const ClassesForm = props => {
 };
 
 export default reduxForm({
-    form: 'classes',
+    form: 'classesformember',
     validate,
-})(ClassesForm)
+})(ClassesForMemberForm)

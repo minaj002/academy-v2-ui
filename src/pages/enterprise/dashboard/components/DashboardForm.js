@@ -87,11 +87,11 @@ const DashboardForm = props => {
                     >
                         <div>
                             <TextField
-                            hintText="Today's Topic"
-                            onChange={setClassTitle}
-                            fullWidth={true}
-                            value={checkedIn.title}
-                        />
+                                hintText="Today's Topic"
+                                onChange={setClassTitle}
+                                fullWidth={true}
+                                value={checkedIn.title}
+                            />
                         </div>
                     </GridTile>
                     <GridTile
@@ -106,6 +106,9 @@ const DashboardForm = props => {
                     >
                         <div className="field">
                             <Card>
+                                {checkedIn.quering &&
+                                <CircularProgress className="circular-progress-40"/>
+                                }
                                 {checkedIn.unchecked &&
                                 <AutoComplete
                                     floatingLabelText="type name"

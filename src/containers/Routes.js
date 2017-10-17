@@ -10,6 +10,7 @@ import AddUser from "../pages/enterprise/add-user/AddUser";
 import Classes from "../pages/enterprise/classes/Classes";
 import Payments from "../pages/enterprise/payments/Payments";
 import AddPayment from "../pages/enterprise/payments/AddPayment";
+import ClassesForMember from "../pages/enterprise/classes/ClassesForMember";
 
 const Routes = (props) => {
 
@@ -29,10 +30,13 @@ const Routes = (props) => {
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
             <Route path="/classes" component={(props) => <Classes {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
+            <Route path="/classes-for-member" component={(props) => <ClassesForMember {...props}
+                  isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
             <Route path="/payments" component={(props) => <Payments {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
             <Route path="/add-payment" component={(props) => <AddPayment {...props}
                   isAuthenticated={isAuthenticated} errorMessage={errorMessage} />} />
+
 
         </div>
     )

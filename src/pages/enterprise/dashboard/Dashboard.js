@@ -8,9 +8,10 @@ import {change} from 'redux-form';
 import {Card} from 'material-ui/Card';
 
 import './dashboard.css';
-import {getMembers} from "../../../actions/getStatement";
-import {checkConfirm, checkInChosen, chooseForCheckIn, closeConfirm, setClassTitle} from "../../../actions/checkin";
-import {Dialog, FlatButton, RaisedButton} from "material-ui";
+import {
+    checkConfirm, checkInChosen, chooseForCheckIn, closeConfirm, getMembers,
+    setClassTitle
+} from "../../../actions/checkin";
 import DashboardConfirm from "./components/DashboardConfirm";
 
 class Dashboard extends Component {

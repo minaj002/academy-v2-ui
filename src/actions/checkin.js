@@ -1,10 +1,6 @@
-/**
- * Created by artis on 08/05/2017.
- */
-
-
 import {
-    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM, MEMBERS_SENT, SET_CLASS_TITLE,
+    CHEKIN_CHOSEN, CHEKIN_CONFIRM, CHOOSE_FOR_CHECKIN, CLOSE_CONFIRM, MEMBERS_SENT, QUERING_MEMBERS, SET_ALL_MEMBERS,
+    SET_CLASS_TITLE,
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 import doFetch from '../middleware/RestApi';
@@ -15,6 +11,12 @@ export function chooseForCheckIn(member) {
     return {
         type: CHOOSE_FOR_CHECKIN,
         chosen: member
+    }
+}
+
+export function queringMembers() {
+    return {
+        type: QUERING_MEMBERS
     }
 }
 
@@ -56,6 +58,42 @@ function membersSent() {
         type: MEMBERS_SENT
     }
 }
+
+function setAllMembers(members) {
+    return {
+        type: SET_ALL_MEMBERS,
+        members: members
+    }
+}
+
+export function getMembers() {
+    return dispatch => {
+
+        dispatch(queringMembers());
+
+        let configGet = {
+            method: 'GET',
+            headers: {'Content-Type':'application/json'}
+        };
+
+        dispatch(doFetch(`members`, configGet, true))
+            .then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response
+                } else {
+                    throw new Error("Authentication failed")
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                dispatch(setAllMembers(response.response));
+                dispatch(setMembers(response.response));
+
+            })
+
+    };
+}
+
 
 export function sendStudents() {
     return dispatch => {

@@ -7,14 +7,13 @@ import {change} from 'redux-form';
 import {Card} from 'material-ui/Card';
 
 import './payments.css';
-import {getMembers} from "../../../actions/getStatement";
-import {Dialog, FlatButton, RaisedButton} from "material-ui";
 import AddPaymentForm from "./components/AddPaymentForm";
 import {
     closeDialog, getPaymentsForMember, makePayment, openDialog, setAmount,
     setPaidUntil
 } from "../../../actions/getPayments";
 import AddPaymentConfirm from "./components/AddPaymentConfirm";
+import {getMembers} from "../../../actions/checkin";
 
 class AddPayment extends Component {
 

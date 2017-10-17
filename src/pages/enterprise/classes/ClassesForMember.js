@@ -6,17 +6,16 @@ import {change} from 'redux-form';
 
 import {Card} from 'material-ui/Card';
 
-import './payments.css';
-import PaymentsForm from "./components/PaymentsForm";
-import {getPayments, getPaymentsForMember} from "../../../actions/getPayments";
+import './classes.css';
+import ClassesForMemberForm from "./components/ClassesForMemberForm";
+import {getClassesForMember, setClassMember} from "../../../actions/getClasses";
 import {getMembers} from "../../../actions/checkin";
 
-class Payments extends Component {
-
+class ClassesForMember extends Component {
 
     constructor(props) {
         super(props);
-        console.log("constructing Payments: ", props);
+        console.log("constructing AddPayment: ", props);
         this.state = {
             open: false,
         };
@@ -26,28 +25,18 @@ class Payments extends Component {
         if (!this.props.isAuthenticated) {
             this.props.history.push('/');
         }
-        this.props.dispatch(setTitle("Payments"));
+        this.props.dispatch(setTitle("Classes For Member"));
     }
 
     componentDidMount() {
-        this.props.dispatch(change('payments', 'name', localStorage.getItem("name")));
-        this.props.dispatch(getPayments(new Date()));
+        this.props.dispatch(change('classesForMember ', 'name', localStorage.getItem("name")));
         this.props.dispatch(getMembers());
     }
 
-    chooseMonth = (event, date) => {
-        console.log(event, date)
-        this.props.dispatch(getPayments(date));
-    }
-
-    clickToSeePayments = (event) => {
+    clickToSeeClasses = (event) => {
         console.log(event)
-
-        let member = this.props.payments.members.find(member => {
-            return member.id === event.memberId;
-        })
-
-        this.props.dispatch(getPaymentsForMember(member, new Date()))
+        this.props.dispatch(setClassMember(event))
+        this.props.dispatch(getClassesForMember(event))
     }
 
     render() {
@@ -55,15 +44,14 @@ class Payments extends Component {
         const { errorMessage, isFetching } = this.props;
 
         return (
-            <div id="classes-form">
+            <div id="dashboard-form">
                 <Card className="card">
                     {errorMessage &&
                     <p className="error-message">{errorMessage}</p>
                     }
-                    <PaymentsForm isFetching={this.props.isFetching} payments = {this.props.payments} clickToSeePayments = {this.clickToSeePayments}
-                                 chooseMonth={this.chooseMonth}
+                    <ClassesForMemberForm isFetching={this.props.isFetching} classes = {this.props.classes} payments = {this.props.payments}
+                                          clickToSeeClasses={this.clickToSeeClasses}
                     />
-
                 </Card>
             </div>
         );
@@ -76,7 +64,9 @@ const mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
     errorMessage: state.auth.errorMessage,
     username: state.auth.userName,
-    payments: state.payments,
+    classes: state.classes,
+    payments: state.payments
+
 });
 
-export default connect(mapStateToProps) (Payments);
+export default connect(mapStateToProps) (ClassesForMember);
