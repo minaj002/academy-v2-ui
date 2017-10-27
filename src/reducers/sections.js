@@ -1,7 +1,3 @@
-/**
- * Created by artis on 12/07/2017.
- */
-
 import { createReducer } from '../utils';
 import { SIGNUP_VERIFY_EMAIL_REQUEST, SIGNUP_VERIFY_EMAIL_SUCCESS, SIGNUP_VERIFY_EMAIL_FAILURE } from '../constants';
 import {SET_SECTIONS} from "../constants/index";

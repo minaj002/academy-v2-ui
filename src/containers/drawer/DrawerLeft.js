@@ -30,7 +30,7 @@ class DrawerLeft extends Component {
         return (
             <Drawer {...this.props} onRequestChange={this.props.onToggleDrawer}>
                 <div style={style.card}>
-                    Weststein CRM
+                    Academy
                 </div>
 
                 <MenuItem onTouchTap={this.props.onToggleDrawer}

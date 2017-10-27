@@ -59,7 +59,7 @@ const AddUserForm = props => {
                     <Field name="lastName" component={InputTextField} label="Last name" />
                 </div>
                 <div className="field">
-                    <Field name="dateOfBirth" component={InputTextField} label="Date of birth" />
+                    <Field name="dateOfBirth" component={InputTextField} label="Date of birth" hintText="11-09-1989"/>
                 </div>
                 <div className="field">
                     <Field name="email" component={InputTextField} label="Email" />
@@ -85,7 +85,7 @@ const AddUserForm = props => {
 
                 type="submit"
                 primary
-                label="Login"
+                label="Add Member"
                 fullWidth
             />
             }

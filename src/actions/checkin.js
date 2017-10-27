@@ -4,6 +4,7 @@ import {
     SET_UNCHECKED_MEMBERS
 } from "../constants/index";
 import doFetch from '../middleware/RestApi';
+import {setError, setMessage} from "./errorMessage";
 
 
 export function chooseForCheckIn(member) {
@@ -119,8 +120,9 @@ export function sendStudents() {
                     throw new Error("Authentication failed")
                 }
             })
+            .then(dispatch(setMessage(JSON.parse(members).length + " Members attended class.")))
             .catch((error) => {
-                // dispatch(loginError("Authentication failed"))
+                setError(error)
             });
 
     };

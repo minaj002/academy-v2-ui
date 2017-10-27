@@ -3,6 +3,7 @@ import {
     CLOSE_PAYMENT_DIALOG, OPEN_PAYMENT_DIALOG, PAID_UNTIL_DATE, SET_AMOUNT, SET_CLASS, SET_PAYMENTS,
     SET_PAYMENTS_FOR_MEMBER
 } from "../constants/index";
+import {setError} from "./errorMessage";
 
 function setPayments(payments) {
     return {
@@ -84,11 +85,12 @@ export function makePayment(member, date, amount) {
                 if (response.status >= 200 && response.status < 300) {
                     return response
                 } else {
-                    throw new Error("Authentication failed")
+                    throw new Error("Payment error" + response.status )
                 }
             })
             .then(response => response.json())
             .catch((error) => {
+                setError(error)
             });
 
     };

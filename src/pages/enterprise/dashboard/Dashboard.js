@@ -72,8 +72,11 @@ class Dashboard extends Component {
         return (
             <div id="dashboard-form">
                 <Card className="card">
-                    {errorMessage &&
-                    <p className="error-message">{errorMessage}</p>
+                    {errorMessage.error &&
+                    <p className="error-message">{errorMessage.error}</p>
+                    }
+                    {errorMessage.message &&
+                    <p className="error-message">{errorMessage.message}</p>
                     }
                     <DashboardForm isFetching={this.props.isFetching} checkIn = {this.checkIn}
                                    choose = {this.choose} checkedIn = {this.props.checkedIn} clickToCheckin={this.clickToCheckin}
@@ -93,7 +96,7 @@ const mapStateToProps = (state) => ({
 
     isAuthenticated: state.auth.isAuthenticated,
     isFetching: state.auth.isFetching,
-    errorMessage: state.auth.errorMessage,
+    errorMessage: state.errors_messages,
     username: state.auth.userName,
     checkedIn: state.checkin,
 

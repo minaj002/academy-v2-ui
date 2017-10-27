@@ -38,9 +38,13 @@ class AddUser extends Component {
             , email: user.email.trim(), phone: user.phone.trim(), street: user.street.trim(), city: user.city.trim()
             , sections: [user.section]
         };
-
-        console.log(user)
-        console.log(newMember)
+        user.firstName = '';
+        user.lastName='';
+        user.dateOfBirth='';
+        user.email='';
+        user.phone='';
+        user.street='';
+        user.city='';
 
         this.props.dispatch(addMember(newMember));
     };
@@ -52,8 +56,11 @@ class AddUser extends Component {
         return (
             <div id="login-form">
                 <Card className="card">
-                    {errorMessage &&
-                    <p className="error-message">{errorMessage}</p>
+                    {errorMessage.error &&
+                    <p className="error-message">{errorMessage.error}</p>
+                    }
+                    {errorMessage.message &&
+                    <p className="error-message">{errorMessage.message}</p>
                     }
 
                     <AddUserForm errorMessage={this.props.errorMessage} isFetching={this.props.isFetching} onSubmit={this.handleSubmit} sections = {this.props.sections}/>
@@ -67,9 +74,10 @@ const mapStateToProps = (state) => ({
 
     isAuthenticated: state.auth.isAuthenticated,
     isFetching: state.auth.isFetching,
-    errorMessage: state.auth.errorMessage,
+    errorMessage: state.errors_messages,
     username: state.auth.userName,
     sections: state.sections,
+
 });
 
 export default connect(mapStateToProps) (AddUser);

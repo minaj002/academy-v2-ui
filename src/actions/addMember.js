@@ -1,33 +1,6 @@
-/**
- * Created by artis on 08/05/2017.
- */
-
 import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, SET_ROLES} from '../constants';
 import doFetch from '../middleware/RestApi';
-
-function requestLogin(creds) {
-    return {
-        type: LOGIN_REQUEST,
-    }
-}
-
-function receiveLogin(token) {
-    return {
-        type: LOGIN_SUCCESS,
-        payload: {
-            token: token
-        }
-    }
-}
-
-function loginError(message) {
-    return {
-        type: LOGIN_FAILURE,
-        payload: {
-            errorMessage: message
-        }
-    }
-}
+import {setError, setMessage} from "./errorMessage";
 
 export function addMember(member) {
 
@@ -46,15 +19,12 @@ export function addMember(member) {
                 if (response.status >= 200 && response.status < 300) {
                     return response
                 } else {
-                    throw new Error("Authentication failed")
+                    throw new Error("Error: " + response.status)
                 }
             })
-            .then(response => response.json())
-            .then(response => {
-                localStorage.setItem('name', response.response);
-            })
+            .then(dispatch(setMessage("Member "+ member.firstName + " "+ member.lastName + " was added")))
             .catch((error) => {
-            dispatch(loginError("Authentication failed"))
+                dispatch(setError(error))
         });
 
     };

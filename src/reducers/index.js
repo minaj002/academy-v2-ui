@@ -8,6 +8,7 @@ import sections from "./sections";
 import checkin from "./checkin";
 import classes from "./classes";
 import payments from "./payments";
+import errors_messages from "./errors_messages";
 
 export default combineReducers({
     auth,
@@ -18,6 +19,7 @@ export default combineReducers({
     checkin,
     classes,
     payments,
+    errors_messages,
     form: formReducer,
 
 });

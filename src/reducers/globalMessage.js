@@ -1,7 +1,3 @@
-/**
- * Created by artis on 28/04/2017.
- */
-
 import { createReducer } from '../utils';
 import { GLOBAL_SNACKBAR_OPEN, GLOBAL_SNACKBAR_CLOSE } from '../constants';
 

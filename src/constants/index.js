@@ -41,3 +41,7 @@ export const SET_CLASS_TITLE = "SET_CLASS_TITLE";
 export const QUERING_MEMBERS = "QUERING_MEMBERS";
 
 
+export const SET_ERROR = "SET_ERROR";
+export const SET_MESSAGE = "SET_MESSAGE";
+
+
